@@ -11,7 +11,7 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
   }
 
-  h1, h2, h3, h4, h5, h6, p {
+  h1, h2, h3, h4, h5, h6, p, a {
     margin: 0;
   }
 
@@ -24,10 +24,21 @@ const GlobalStyles = createGlobalStyle`
     list-style: none;
   }
 
+  a {
+    text-decoration: none;
+    color: ${props => props.theme.colors.gold900};
+  }
+
   h1 {
     font-size: 4.125rem;
     color: ${props => props.theme.colors.gold500};
     font-weight: 600;
+    @media ${props => props.theme.bp.md} {
+      font-size: 6rem;
+    }
+    @media ${props => props.theme.bp.md} {
+      font-size: 6rem;
+    }
   }
 `;
 

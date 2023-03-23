@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import navigation from "@/content/navigation";
 import Link from "next/link";
@@ -7,6 +8,10 @@ import Link from "next/link";
 const Navbar = (props) => {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const router = useRouter();
+
+  console.log(router);
 
   return (
     <StyledNavbar>
@@ -22,7 +27,7 @@ const Navbar = (props) => {
           <ul>
             {navigation.map((navigationItem, index) => (
               <li key={navigationItem.label}>
-                <Link href={navigationItem.url}>
+                <Link href={`${navigationItem.url}`} className={`${router.pathname === navigationItem.url ? 'current' : ''}`}>
                   {navigationItem.label}
                 </Link>
               </li>
@@ -60,8 +65,24 @@ const StyledNavbar = styled.div`
     }
     .desktop-navigation {
       display: none;
+      ul {
+        display: flex;
+        li {
+          margin-left: 7rem;
+          a {
+            font-size: 2rem;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            &.current {
+              color: ${props => props.theme.colors.gold500};
+            }
+          }
+        }
+      }
       @media ${props => props.theme.bp.lg} {
-        display: block;
+        display: flex;
+        align-items: center;
       }
     }
     .hamburger-menu {
@@ -70,6 +91,9 @@ const StyledNavbar = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
+      @media ${props => props.theme.bp.lg} {
+        display: none;
+      }
       &.open {
         div {
           &:first-of-type {

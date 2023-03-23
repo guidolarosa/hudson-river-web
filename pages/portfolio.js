@@ -3,7 +3,7 @@ import Root from '@/components/Root';
 import styled from 'styled-components';
 import Image from 'next/image';
 
-export default function Home() {
+export default function Portfolio() {
   return (
     <>
       <Head>
@@ -44,12 +44,6 @@ const StyledRoot = styled(Root)`
       margin-top: 6rem;
       position: relative;
       z-index: 1;
-      @media ${props => props.theme.bp.md} {
-        margin-top: 11rem;
-      }
-      @media ${props => props.theme.bp.xl} {
-        margin-top: 15rem;
-      }
     }
   }
 `;
