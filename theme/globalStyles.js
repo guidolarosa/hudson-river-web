@@ -1,6 +1,9 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
   body, html {
     background: ${props => props.theme.colors.offWhite};
     color: ${props => props.theme.colors.gold900};
@@ -39,6 +42,22 @@ const GlobalStyles = createGlobalStyle`
     @media ${props => props.theme.bp.md} {
       font-size: 6rem;
     }
+  }
+    
+  .page-transition-enter {
+    opacity: 0;
+  }
+  .page-transition-enter-active {
+    opacity: 1;
+    transition: opacity 300ms;
+    /* transform: translateX(0rem) */
+  }
+  .page-transition-exit {
+    opacity: 1;
+  }
+  .page-transition-exit-active {
+    opacity: 0;
+    transition: opacity 300ms;
   }
 `;
 

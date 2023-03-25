@@ -32,7 +32,6 @@ export default function Home() {
 const StyledRoot = styled(Root)`
   .hero {
     height: 100%;
-    background: blue;
     flex-grow: 1;
     position: relative;
     .hero-background {

@@ -11,17 +11,17 @@ const Navbar = (props) => {
 
   const router = useRouter();
 
-  console.log(router);
-
   return (
     <StyledNavbar>
       <div className="inner-navbar-container">
         <div className="logo-container">
-          <Image
-            src={'/general/Logo.svg'}
-            fill
-            alt="Hudson River"
-          />
+          <Link href="/">
+            <Image
+              src={'/general/Logo.svg'}
+              fill
+              alt="Hudson River"
+            />
+          </Link>
         </div>
         <nav className="desktop-navigation">
           <ul>
@@ -44,6 +44,21 @@ const Navbar = (props) => {
           <div/>
         </div>
       </div>
+      <div 
+        className={`mobile-navigation ${mobileMenuOpen ? 'open' : ''}`}
+      >
+        <div className="navigation-container">
+          <nav>
+            <ul>
+              {navigation.map((navigationItem, index) => (
+                <li key={index}>
+                  <Link href={navigationItem.url}>{navigationItem.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      </div>
     </StyledNavbar>
   )
 };
@@ -58,6 +73,7 @@ const StyledNavbar = styled.div`
     position: relative;
     display: inherit;
     justify-content: space-between;
+    z-index: 3;
     .logo-container {
       width: 20rem;
       height: 4rem;
@@ -119,7 +135,39 @@ const StyledNavbar = styled.div`
       }
     }
   }
-
+  .mobile-navigation {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    top: 0;
+    background: ${props => props.theme.colors.gold25};
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.2s ease-in-out all;
+    top: 10rem;
+    &.open {
+      opacity: 1;
+      pointer-events: unset;
+      top: 0;
+    }
+    .navigation-container {
+      ${props => props.theme.boxSizes.default};
+      margin-top: 14rem;
+      position: relative;
+      nav {
+        ul {
+          li {
+            font-size: 2.37rem;
+            text-transform: uppercase;
+            padding: 2rem 0;
+            border-bottom: 1px solid ${props => props.theme.colors.offWhite};
+            letter-spacing: 0.03em;
+          }
+        }
+      }
+    }
+  }
 `;
 
 export default Navbar;
