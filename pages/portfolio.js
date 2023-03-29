@@ -58,12 +58,16 @@ export default function Portfolio(props) {
 
 const StyledRoot = styled(Root)`
   ${props => props.theme.boxSizes.default};
-  display: grid !important;
-  grid-template-columns: 25rem 1fr;
-  grid-template-rows: 100%;
-  grid-template-areas: 
-    'sidebar lists';
-  padding-top: 6rem;
+  display: flex;
+  flex-direction: column;
+  @media ${props => props.theme.bp.lg} {
+    padding-top: 6rem;
+    display: grid !important;
+    grid-template-columns: 25rem 1fr;
+    grid-template-rows: 100%;
+    grid-template-areas: 
+      'sidebar lists';
+  }
   .sidebar {
     grid-area: sidebar;
     ul {
@@ -81,7 +85,10 @@ const StyledRoot = styled(Root)`
       gap: 0rem 4rem;
       width: 100%;
       li {
-        width: calc(50% - 2rem);
+        width: 100%;
+        @media ${props => props.theme.bp.md} {
+          width: calc(50% - 2rem);
+        }
         .portfolio-item-card {
           margin-bottom: 6rem;
           padding-bottom: 3rem;
