@@ -7,8 +7,8 @@ const cormorantGaramond = Cormorant_Garamond({subsets: ['latin'], weight: ['300'
 const Root = (props) => {
   return (
     <div className={`${cormorantGaramond.className}`}>
+      <Navbar/>
       <StyledRoot {...props}>
-        <Navbar/>
         {props.children}
         {/* <Footer /> */}
       </StyledRoot>

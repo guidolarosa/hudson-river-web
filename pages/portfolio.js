@@ -2,8 +2,11 @@ import Head from 'next/head'
 import Root from '@/components/Root';
 import styled from 'styled-components';
 import Image from 'next/image';
+import { Inter } from '@next/font/google';
 
-export default function Portfolio() {
+const inter = Inter({subsets: ['latin'], weight: ['300', '400', '500', '600', '700']});
+
+export default function Portfolio(props) {
   return (
     <>
       <Head>
@@ -13,36 +16,117 @@ export default function Portfolio() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <StyledRoot>
-        <div className="hero">
-          <div className="hero-content">
-            <h1>Real Estate Private <br/> Equity & Investments</h1>
-          </div>
-          <Image
-            fill
-            src={'/homepage/hero-image.png'}
-            alt="Hudson River"
-            className="hero-background"
-          />
+        <div className="sidebar">
+          <ul>
+            <li>
+              Real Estate Acquisitions
+            </li>
+            <li>
+              Investments
+            </li>
+          </ul>
         </div>
+        <main className="list-content">
+          <div className="investments">
+            <ul>
+              {props.rsa.data.map((content, index) => (
+                <li key={index}>
+                  <div className="portfolio-item-card">
+                    <div className="header">
+                      <div className="image">
+                        <Image
+                          fill
+                          src={content.attributes.MainImage.data.attributes.url}
+                          alt={content.attributes.Name}
+                        />
+                      </div>
+                    </div>
+                    <div className="body">
+                      <div className={`city ${inter.className}`}>{content.attributes.City}</div>
+                      <h2>{content.attributes.Name}</h2>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </main>
       </StyledRoot>
     </>
   )
 };
 
 const StyledRoot = styled(Root)`
-  .hero {
-    height: 100%;
-    flex-grow: 1;
-    position: relative;
-    .hero-background {
-      object-fit: cover;
-      object-position: 80% 0;
+  ${props => props.theme.boxSizes.default};
+  display: grid !important;
+  grid-template-columns: 25rem 1fr;
+  grid-template-rows: 100%;
+  grid-template-areas: 
+    'sidebar lists';
+  padding-top: 6rem;
+  .sidebar {
+    grid-area: sidebar;
+    ul {
+      li {
+        font-size: 3rem;
+        margin-bottom: 4rem;
+      }
     }
-    .hero-content {
-      ${props => props.theme.boxSizes.default};
-      margin-top: 6rem;
-      position: relative;
-      z-index: 1;
+  }
+  .list-content {
+    grid-area: lists;
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0rem 4rem;
+      width: 100%;
+      li {
+        width: calc(50% - 2rem);
+        .portfolio-item-card {
+          margin-bottom: 6rem;
+          padding-bottom: 3rem;
+          border-bottom: 1px solid ${props => props.theme.colors.gold50};
+          .header {
+            margin-bottom: 3rem;
+            .image {
+              position: relative;
+              height: 35.25rem;
+              width: 100%;
+              img {
+                object-fit: cover;
+              }
+            }
+          }
+          .body {
+            .city {
+              text-transform: uppercase;
+              font-size: 2rem;
+              font-weight: 300;
+              margin-bottom: 0.5rem;
+            }
+            h2 {
+              font-size: 5rem;
+              font-weight: 700;
+              line-height: 6rem;
+            }
+          }
+        }
+      }
     }
   }
 `;
+
+export async function getStaticProps(context) {
+  const investmentsRes = await fetch('https://hudson-river-admin.herokuapp.com/api/investments?populate=*');
+  const investments = await investmentsRes.json();
+
+  const rsaRes = await fetch('https://hudson-river-admin.herokuapp.com/api/real-estate-acquisitions?populate=*');
+  const rsa = await rsaRes.json();
+
+  return {
+    props: {
+      investments: investments,
+      rsa: rsa
+    }
+  }
+}
