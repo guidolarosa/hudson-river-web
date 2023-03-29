@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Sidebar = (props) => {
   return (
-    <StyledSidebar>
+    <StyledSidebar className={'sidebar'}>
       {props.children}
     </StyledSidebar>
   )

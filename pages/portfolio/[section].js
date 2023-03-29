@@ -62,7 +62,7 @@ export default function Portfolio(props) {
             <div 
               className="list-visibility-toggle" 
               onClick={() => { 
-                handleToggleClick('rea') 
+                handleToggleClick('real-estate-acquisitions') 
               }}
             >
               <h1>Real Estate Acquisitions</h1>
@@ -92,7 +92,10 @@ export default function Portfolio(props) {
             </ul>
           </div>
           <div className={`investments portfolio-list ${currentView === 'investments' ? 'show' : ''}`}>
-            <div className="list-visibility-toggle" onClick={() => { handleToggleClick('investments') }}>
+            <div 
+              className="list-visibility-toggle" 
+              onClick={() => { handleToggleClick('investments') }}
+            >
               <h1>Investments</h1>
             </div>
             <ul>
