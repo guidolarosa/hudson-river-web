@@ -3,7 +3,8 @@ import Root from '@/components/Root';
 import styled from 'styled-components';
 import Image from 'next/image';
 
-export default function Home() {
+export default function Home(props) {
+  console.log(props)
   return (
     <>
       <Head>
@@ -52,3 +53,34 @@ const StyledRoot = styled(Root)`
     }
   }
 `;
+
+export async function getStaticProps(ctx) {
+  console.log(ctx)
+  const investmentRes = await fetch(`https://hudson-river-admin.herokuapp.com/api/investments?filters[Slug][$eq]=${ctx.params.id}`);
+  const investment = await investmentRes.json();
+
+  return {
+    props: {
+      investment: investment
+    }
+  }
+}
+
+export async function getStaticPaths() {
+  let investmentsPaths = [];
+  const investmentsRes = await fetch('https://hudson-river-admin.herokuapp.com/api/investments');
+  const investments = await investmentsRes.json();
+  
+  investments.data.forEach((item) => {
+    investmentsPaths.push({
+      params: {
+        id: item.attributes.Slug
+      }
+    });
+  });
+  
+  return {
+    paths: investmentsPaths,
+    fallback: false, // can also be true or 'blocking'
+  }
+}

@@ -1,7 +1,7 @@
 const navigation = [
   {
     label: 'Portfolio',
-    url: '/portfolio'
+    url: '/portfolio/real-estate-acquisitions'
   },
   {
     label: 'About',

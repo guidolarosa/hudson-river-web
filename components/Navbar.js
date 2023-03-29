@@ -11,6 +11,8 @@ const Navbar = (props) => {
 
   const router = useRouter();
 
+  console.log(router)
+
   return (
     <StyledNavbar>
       <div className="inner-navbar-container">
@@ -27,7 +29,7 @@ const Navbar = (props) => {
           <ul>
             {navigation.map((navigationItem, index) => (
               <li key={navigationItem.label}>
-                <Link href={`${navigationItem.url}`} className={`${router.pathname === navigationItem.url ? 'current' : ''}`}>
+                <Link href={`${navigationItem.url}`} className={`${router.asPath === navigationItem.url ? 'current' : ''}`}>
                   {navigationItem.label}
                 </Link>
               </li>

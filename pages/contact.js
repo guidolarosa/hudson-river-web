@@ -7,9 +7,18 @@ import { Inter } from '@next/font/google';
 const inter = Inter({subsets: ['latin']});
 
 const Contact = (props) => {
-
+  
   const onFormSubmit = (e) => {
     e.preventDefault();
+    fetch('https://hudson-river-admin.herokuapp.com/api/email', {
+      headers: {
+        'Authorization': 'Bearer ' + props.strapiApiKey
+      }
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+      });
   };
 
   return (
@@ -150,3 +159,11 @@ const StyledContact = styled(Root)`
 `;
 
 export default Contact;
+
+export async function getStaticProps(context) {
+  return {
+    props: {
+      strapiApiKey: process.env.STRAPI_API_TOKEN
+    }
+  }
+}
