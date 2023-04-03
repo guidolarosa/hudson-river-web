@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { fadeUp } from '@/theme/animations';
 
 const Sidebar = (props) => {
   return (
@@ -20,6 +21,11 @@ const StyledSidebar = styled.div`
       border-bottom: 1px solid transparent;
       padding-bottom: 2rem;
       position: relative;
+      animation: 0.25s ${fadeUp} 1.5s ease-out forwards;
+      opacity: 0;
+      &:nth-child(2) {
+        animation-delay: 2s;
+      }
       &:before {
         content: '';
         width: 2rem;

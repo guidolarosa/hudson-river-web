@@ -1,9 +1,10 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import navigation from "@/content/navigation";
 import Link from "next/link";
+import { fadeDown } from "@/theme/animations";
 
 const Navbar = (props) => {
 
@@ -77,6 +78,8 @@ const StyledNavbar = styled.div`
     display: inherit;
     justify-content: space-between;
     z-index: 3;
+    opacity: 0;
+    animation: 0.25s ${fadeDown} forwards ease-out 1s;
     .logo-container {
       width: 20rem;
       height: 4rem;

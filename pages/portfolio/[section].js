@@ -9,6 +9,8 @@ import ReactMarkdown from 'react-markdown';
 import Sidebar from '@/components/Sidebar';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { fadeUp } from '@/theme/animations';
+import { keyframes } from 'styled-components';
 
 const inter = Inter({subsets: ['latin'], weight: ['300', '400', '500', '600', '700']});
 
@@ -128,10 +130,18 @@ export default function Portfolio(props) {
   )
 };
 
+const borderCardAnimation = keyframes`
+  0% {border-color: transparent};
+  100% {border-color: hsla(33, 16%, 89%, 1)};
+`;
+
 const StyledRoot = styled(Root)`
   ${props => props.theme.boxSizes.default};
   display: flex;
   flex-direction: column;
+  @media ${props => props.theme.bp.md} {
+    padding-top: 4rem;
+  }
   @media ${props => props.theme.bp.lg} {
     padding-top: 6rem;
     display: grid !important;
@@ -206,7 +216,8 @@ const StyledRoot = styled(Root)`
         .portfolio-item-card {
           margin-bottom: 2rem;
           padding-bottom: 3rem;
-          border-bottom: 1px solid ${props => props.theme.colors.gold50};
+          border-bottom: 1px solid transparent;
+          animation: 0.25s ${borderCardAnimation} ease-out 2.25s forwards;
           @media ${props => props.theme.bp.lg} {
             margin-bottom: 6rem;
           }
@@ -216,11 +227,14 @@ const StyledRoot = styled(Root)`
               position: relative;
               height: 25rem;
               width: 100%;
+              opacity: 0;
+              animation: 0.25s ${fadeUp} ease-out 1.5s forwards;
               @media ${props => props.theme.bp.md} {
                 height: 35.25rem;
               }
               img {
                 object-fit: cover;
+                object-position: center;
               }
             }
           }
@@ -234,6 +248,8 @@ const StyledRoot = styled(Root)`
               font-weight: 300;
               margin-bottom: 0.5rem;
               font-size: 1.625rem;
+              opacity: 0;
+              animation: 0.25s ${fadeUp} ease-out 1.75s forwards;
               @media ${props => props.theme.bp.lg} {
                 font-size: 2rem;
               }
@@ -243,6 +259,8 @@ const StyledRoot = styled(Root)`
               font-size: 4rem;
               font-weight: 700;
               line-height: 4.5rem;
+              opacity: 0;
+              animation: 0.25s ${fadeUp} ease-out 2s forwards;
               @media ${props => props.theme.bp.lg} {
                 font-size: 5rem;
                 line-height: 6rem;

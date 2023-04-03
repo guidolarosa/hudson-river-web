@@ -145,6 +145,10 @@ const StyledContact = styled(Root)`
         height: 30rem;
         border: 0;
         background: ${props => props.theme.colors.gold500};
+        filter: grayscale(1);
+        @media ${props => props.theme.bp.xl} {
+          height: 60rem;
+        }
       }
       strong {
         ${props => props.theme.boxSizes.default};

@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Root from '@/components/Root';
 import styled from 'styled-components';
 import Image from 'next/image';
+import { fadeUp } from '@/theme/animations';
 
 export default function Home() {
   return (
@@ -60,6 +61,8 @@ const StyledRoot = styled(Root)`
       margin-top: 6rem;
       position: relative;
       z-index: 1;
+      opacity: 0;
+      animation: 0.25s ${fadeUp} 1s ease-out forwards;
       @media ${props => props.theme.bp.md} {
         margin-top: 11rem;
       }

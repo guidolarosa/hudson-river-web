@@ -84,6 +84,11 @@ const StyledAbout = styled(Root)`
       }
       @media ${props => props.theme.bp.lg} {
         max-width: 85rem;
+        max-height: 32rem;
+      }
+      @media ${props => props.theme.bp.xl} {
+        max-width: unset;
+        max-height: 44rem;
       }
     }
     .about-content {
