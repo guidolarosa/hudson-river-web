@@ -3,17 +3,38 @@ import Head from 'next/head'
 import Image from 'next/image';
 import Root from '@/components/Root';
 import { Inter } from '@next/font/google';
+import { useEffect, useState } from 'react';
 
 const inter = Inter({subsets: ['latin']});
 
 const Contact = (props) => {
+
+  const [formData, setFormData] = useState({
+    Name: '',
+    Email: '',
+    Phone: '',
+    Message: ''
+  });
+
+  useEffect(() => {
+    console.log(formData);
+  })
   
   const onFormSubmit = (e) => {
     e.preventDefault();
-    fetch('https://hudson-river-admin.herokuapp.com/api/email')
+
+    fetch('https://hudson-river-admin.herokuapp.com/api/messages', {
+      method: 'POST',
+      body: JSON.stringify({
+        data: formData
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        
       });
   };
 
@@ -23,7 +44,7 @@ const Contact = (props) => {
         <title>Hudson River | About</title>
         <meta name="description" content="Hudson River" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <StyledContact>
         <div className="contact-container">
@@ -36,21 +57,62 @@ const Contact = (props) => {
             <form onSubmit={onFormSubmit} className={inter.className}>
               <div className="input-group">
                 <label for="name">Name <span>*</span></label>
-                <input type="text" placeholder="Enter your name" id="name" />
+                <input 
+                  type="text" 
+                  placeholder="Enter your name" 
+                  id="name"
+                  onChange={(e) => {
+                    setFormData({
+                      ...formData,
+                      Name: e.target.value
+                    })
+                  }}
+                />
               </div>
               <div className="input-row">
                 <div className="input-group">
                   <label for="email">Email Address <span>*</span></label>
-                  <input type="text" placeholder="Enter your email" id="email"/>
+                  <input 
+                    type="text" 
+                    placeholder="Enter your email" 
+                    id="email"
+                    onChange={(e) => {
+                      setFormData({
+                        ...formData,
+                        Email: e.target.value
+                      })
+                    }}
+                  />
                 </div>
                 <div className="input-group">
                   <label for="phone">Phone <span>*</span></label>
-                  <input type="text" placeholder="Enter your phone" id="phone"/>
+                  <input 
+                    type="tel" 
+                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                    placeholder="Enter your phone" 
+                    id="phone"
+                    onChange={(e) => {
+                      setFormData({
+                        ...formData,
+                        Phone: e.target.value
+                      })
+                    }}
+                  />
                 </div>
               </div>
               <div className="input-group">
                 <label for="message">Message <span>*</span></label>
-                <textarea type="text" placeholder="Enter your message" id="message"/>
+                <textarea 
+                  type="text" 
+                  placeholder="Enter your message" 
+                  id="message"
+                  onChange={(e) => {
+                    setFormData({
+                      ...formData,
+                      Message: e.target.value
+                    })
+                  }}
+                />
               </div>
               <div className="input-group">
                 <button>Submit</button>
@@ -88,7 +150,8 @@ const StyledContact = styled(Root)`
         ${props => props.theme.boxSizes.default};
         display: block;
         margin-top: 3rem;
-        font-size: 2.3rem;
+        font-size: 2.375rem;
+        font-weight: 400;
         color: ${props => props.theme.colors.gold500};
         @media ${props => props.theme.bp.md} {
           width: unset;
@@ -104,9 +167,26 @@ const StyledContact = styled(Root)`
         margin-top: 7rem;
         margin-bottom: 5rem;
         padding-bottom: 2rem;
-        border-bottom: 1px solid ${props => props.theme.colors.gold500};
+        border-bottom: 1px solid ${props => props.theme.colors.gold100};
+        font-size: 4.125rem;
         @media ${props => props.theme.bp.md} {
           margin-top: 0;
+        }
+      }
+      .input-row {
+        display: flex;
+        gap: 3rem;
+        flex-direction: column;
+        .input-group {
+          &:first-of-type {
+            margin-bottom: 0.5rem;
+          }
+        }
+        @media ${props => props.theme.bp.md} {
+          flex-direction: row;
+          .input-group {
+            flex-grow: 1;
+          }
         }
       }
       .input-group {
@@ -116,7 +196,10 @@ const StyledContact = styled(Root)`
         label {
           text-transform: uppercase;
           margin-bottom: 0.5rem;
-          font-size: 1.1rem;
+          font-size: 1.25rem;
+          span {
+            color: ${props => props.theme.colors.gold500};
+          }
         }
         input, textarea {
           background: transparent;
@@ -148,6 +231,9 @@ const StyledContact = styled(Root)`
           color: ${props => props.theme.colors.gold50};
           border-radius: 10rem;
           font-size: 2rem;
+          @media ${props => props.theme.bp.md} {
+            width: 27.75rem;
+          }
         }
       }
     }

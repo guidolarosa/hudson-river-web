@@ -36,7 +36,7 @@ export default function Portfolio(props) {
         <title>Hudson River</title>
         <meta name="description" content="Hudson River" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <StyledRoot>
         <Sidebar>
@@ -101,25 +101,23 @@ export default function Portfolio(props) {
             <ul>
               {props.investments.data.map((content, index) => (
                 <li key={index}>
-                  <Link href={`/investments/${content.attributes.Slug}`}>
-                    <div className="portfolio-item-card">
-                      <div className="header">
-                        <div className="image">
-                          <Image
-                            fill
-                            src={content.attributes.MainImage.data.attributes.url}
-                            alt={content.attributes.Name}
-                          />
-                        </div>
-                      </div>
-                      <div className="body">
-                        <h2>{content.attributes.Name}</h2>
-                        <ReactMarkdown className={inter.className}>
-                          {content.attributes.Excerpt}
-                        </ReactMarkdown>
+                  <div className="portfolio-item-card">
+                    <div className="header">
+                      <div className="image">
+                        <Image
+                          fill
+                          src={content.attributes.MainImage.data.attributes.url}
+                          alt={content.attributes.Name}
+                        />
                       </div>
                     </div>
-                  </Link>
+                    <div className="body">
+                      <h2>{content.attributes.Name}</h2>
+                      <ReactMarkdown className={inter.className}>
+                        {content.attributes.Excerpt}
+                      </ReactMarkdown>
+                    </div>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -165,7 +163,7 @@ const StyledRoot = styled(Root)`
           margin-bottom: 2rem;
           padding: 2rem 0;
           border-bottom: 1px solid ${props => props.theme.colors.gold100};
-          font-size: 4rem;
+          font-size: 4.125rem;
         }
       }
       @media ${props => props.theme.bp.lg} {
@@ -197,10 +195,21 @@ const StyledRoot = styled(Root)`
         @media ${props => props.theme.bp.md} {
           width: calc(50% - 2rem);
         }
+        &:hover {
+          .body {
+            .city,
+            h2 {
+              color: ${props => props.theme.colors.gold500};
+            }
+          }
+        }
         .portfolio-item-card {
-          margin-bottom: 6rem;
+          margin-bottom: 2rem;
           padding-bottom: 3rem;
           border-bottom: 1px solid ${props => props.theme.colors.gold50};
+          @media ${props => props.theme.bp.lg} {
+            margin-bottom: 6rem;
+          }
           .header {
             margin-bottom: 3rem;
             .image {
@@ -216,11 +225,15 @@ const StyledRoot = styled(Root)`
             }
           }
           .body {
+            h2,
+            .city {
+              transition: 0.25s ease-in-out color;
+            }
             .city {
               text-transform: uppercase;
               font-weight: 300;
               margin-bottom: 0.5rem;
-              font-size: 1.5rem;
+              font-size: 1.625rem;
               @media ${props => props.theme.bp.lg} {
                 font-size: 2rem;
               }

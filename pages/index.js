@@ -10,7 +10,7 @@ export default function Home() {
         <title>Hudson River</title>
         <meta name="description" content="Hudson River" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <StyledRoot>
         <div className="hero">
@@ -19,9 +19,15 @@ export default function Home() {
           </div>
           <Image
             fill
+            src={'/homepage/hero-image-mobile.png'}
+            alt="Hudson River"
+            className="hero-background hero-background-mobile"
+          />
+          <Image
+            fill
             src={'/homepage/hero-image.png'}
             alt="Hudson River"
-            className="hero-background"
+            className="hero-background hero-background-desktop"
           />
         </div>
       </StyledRoot>
@@ -37,6 +43,17 @@ const StyledRoot = styled(Root)`
     .hero-background {
       object-fit: cover;
       object-position: 80% 0;
+      &.hero-background-mobile {
+        @media ${props => props.theme.bp.md} {
+          display: none;
+        }
+      }
+      &.hero-background-desktop {
+        display: none;
+        @media ${props => props.theme.bp.md} {
+          display: block;
+        }
+      }
     }
     .hero-content {
       ${props => props.theme.boxSizes.default};

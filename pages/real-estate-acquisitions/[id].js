@@ -29,7 +29,7 @@ export default function REA(props) {
         <title>Hudson River</title>
         <meta name="description" content="Hudson River" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <StyledRoot>
         <Sidebar>

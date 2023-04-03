@@ -13,7 +13,7 @@ const About = (props) => {
         <title>Hudson River | About</title>
         <meta name="description" content="Hudson River" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <StyledAbout>
         <div className="about-header">
@@ -48,9 +48,9 @@ const StyledAbout = styled(Root)`
       text-align: center;
     }
     strong {
-      font-size: 3rem;
       color: ${props => props.theme.colors.gold500};
       font-weight: 600;
+      font-size: 2.875rem;
       @media ${props => props.theme.bp.md} {
         font-size: 4rem;
       }
@@ -60,20 +60,20 @@ const StyledAbout = styled(Root)`
     }
   }
   .separator {
-    border-top: 1px solid ${props => props.theme.colors.gold500};
+    border-top: 1px solid ${props => props.theme.colors.gold100};
   }
   .about-body {
     @media ${props => props.theme.bp.md} {
       ${props => props.theme.boxSizes.default};
       display: flex;
-      gap: 4rem;
+      gap: 4.125rem;
       padding-top: 6rem;
       padding-bottom: 29rem;
     }
     .about-image-container {
       position: relative;
       width: 100%;
-      height: 26rem;
+      height: 22.5rem;
       margin-top: 2rem;
       .about-image {
         object-fit: cover;

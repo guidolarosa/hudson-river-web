@@ -11,7 +11,7 @@ export default function Home(props) {
         <title>Hudson River</title>
         <meta name="description" content="Hudson River" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <StyledRoot>
         <div className="hero">
@@ -55,7 +55,6 @@ const StyledRoot = styled(Root)`
 `;
 
 export async function getStaticProps(ctx) {
-  console.log(ctx)
   const investmentRes = await fetch(`https://hudson-river-admin.herokuapp.com/api/investments?filters[Slug][$eq]=${ctx.params.id}`);
   const investment = await investmentRes.json();
 

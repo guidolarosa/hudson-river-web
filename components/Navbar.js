@@ -11,8 +11,6 @@ const Navbar = (props) => {
 
   const router = useRouter();
 
-  console.log(router)
-
   return (
     <StyledNavbar>
       <div className="inner-navbar-container">
@@ -53,7 +51,7 @@ const Navbar = (props) => {
           <nav>
             <ul>
               {navigation.map((navigationItem, index) => (
-                <li key={index}>
+                <li key={index} className={`${router.asPath === navigationItem.url ? 'current' : ''}`}>
                   <Link href={navigationItem.url}>{navigationItem.label}</Link>
                 </li>
               ))}
@@ -70,6 +68,9 @@ const StyledNavbar = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media ${props => props.theme.bp.lg} {
+    height: 15rem;
+  }
   .inner-navbar-container {
     ${props => props.theme.boxSizes.default};
     position: relative;
@@ -80,6 +81,10 @@ const StyledNavbar = styled.div`
       width: 20rem;
       height: 4rem;
       position: relative;
+      @media ${props => props.theme.bp.lg} {
+        width: 26.5rem;
+        height: 5rem;
+      }
     }
     .desktop-navigation {
       display: none;
@@ -94,6 +99,16 @@ const StyledNavbar = styled.div`
             letter-spacing: 0.03em;
             &.current {
               color: ${props => props.theme.colors.gold500};
+              position: relative;
+              &:after {
+                bottom: -1rem;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                position: absolute;
+                content: '';
+                background: ${props => props.theme.colors.gold100};
+              }
             }
           }
         }
@@ -165,6 +180,12 @@ const StyledNavbar = styled.div`
             padding: 2rem 0;
             border-bottom: 1px solid ${props => props.theme.colors.offWhite};
             letter-spacing: 0.03em;
+            &.current {
+              border-color: ${props => props.theme.colors.gold500};
+              a {
+                color: ${props => props.theme.colors.gold500};
+              }
+            }
           }
         }
       }

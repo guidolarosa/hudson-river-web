@@ -9,13 +9,15 @@ const Sidebar = (props) => {
 }
 
 const StyledSidebar = styled.div`
+  position: fixed;
+  width: 25rem;
   ul {
     li {
-      font-size: 4rem;
+      font-size: 4.125rem;
       margin-bottom: 4rem;
-      transition: 0.25s ease-in-out color;
+      transition: 0.25s ease-in-out all;
       cursor: pointer;
-      border-bottom: 1px solid ${props => props.theme.colors.gold100};
+      border-bottom: 1px solid transparent;
       padding-bottom: 2rem;
       position: relative;
       &:before {
@@ -32,11 +34,9 @@ const StyledSidebar = styled.div`
         opacity: 0;
         transition: 0.25s ease-in-out opacity;
       }
-      &:last-of-type {
-        border-bottom: none;
-      }
       &.current {
         color: ${props => props.theme.colors.gold500};
+        border-color: ${props => props.theme.colors.gold100};
         &:before {
           opacity: 1;
         }
