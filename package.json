@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next/font": "^13.1.1",
+    "@splidejs/react-splide": "^0.7.12",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "next": "13.2.4",

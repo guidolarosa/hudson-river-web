@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image';
 import Root from '@/components/Root';
 import { Inter } from '@next/font/google';
+import { fadeUp } from '@/theme/animations';
 
 const inter = Inter({subsets: ['latin']})
 
@@ -43,6 +44,8 @@ const StyledAbout = styled(Root)`
     ${props => props.theme.boxSizes.default};
     padding: 6rem 0;
     border-bottom: 0.5rem solid ${props => props.theme.colors.gold500};
+    opacity: 0;
+    animation: 0.5s ${fadeUp} 1s forwards;
     @media ${props => props.theme.bp.md} {
       padding: 12rem 9rem;
       text-align: center;
@@ -61,6 +64,8 @@ const StyledAbout = styled(Root)`
   }
   .separator {
     border-top: 1px solid ${props => props.theme.colors.gold100};
+    opacity: 0;
+    animation: 0.5s ${fadeUp} 1s forwards;
   }
   .about-body {
     @media ${props => props.theme.bp.md} {
@@ -75,6 +80,8 @@ const StyledAbout = styled(Root)`
       width: 100%;
       height: 22.5rem;
       margin-top: 2rem;
+      opacity: 0;
+      animation: 0.5s ${fadeUp} 1.25s forwards;
       .about-image {
         object-fit: cover;
       }
@@ -97,6 +104,8 @@ const StyledAbout = styled(Root)`
       font-size: 2rem;
       line-height: 2.7rem;
       padding-bottom: 8rem;
+      opacity: 0;
+      animation: 0.5s ${fadeUp} 1.5s forwards;
       @media ${props => props.theme.bp.md} {
         display: flex;
         flex-direction: column;

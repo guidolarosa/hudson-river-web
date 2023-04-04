@@ -30,7 +30,7 @@ export default function Portfolio(props) {
   useEffect(() => {
     let section = router.query.section;
     setCurrentView(section);
-  }, [])
+  }, [router.query.section])
 
   return (
     <>
@@ -223,12 +223,12 @@ const StyledRoot = styled(Root)`
           }
           .header {
             margin-bottom: 3rem;
+            opacity: 0;
+            animation: 0.25s ${fadeUp} ease-out 1.5s forwards;
             .image {
               position: relative;
               height: 25rem;
               width: 100%;
-              opacity: 0;
-              animation: 0.25s ${fadeUp} ease-out 1.5s forwards;
               @media ${props => props.theme.bp.md} {
                 height: 35.25rem;
               }
@@ -293,6 +293,8 @@ const StyledRoot = styled(Root)`
         }
         .body {
           font-weight: 300;
+          opacity: 0;
+          animation: 0.25s ${fadeUp} ease-out 2.25s forwards;
           p {
             font-size: 2rem;
             margin-bottom: 1rem;

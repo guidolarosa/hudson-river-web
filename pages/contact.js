@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Root from '@/components/Root';
 import { Inter } from '@next/font/google';
 import { useEffect, useState } from 'react';
+import { fadeUp } from '@/theme/animations';
 
 const inter = Inter({subsets: ['latin']});
 
@@ -146,6 +147,8 @@ const StyledContact = styled(Root)`
         border: 0;
         background: ${props => props.theme.colors.gold500};
         filter: grayscale(1);
+        opacity: 0;
+        animation: 0.5s ${fadeUp} 1.5s forwards;
         @media ${props => props.theme.bp.xl} {
           height: 60rem;
         }
@@ -157,6 +160,8 @@ const StyledContact = styled(Root)`
         font-size: 2.375rem;
         font-weight: 400;
         color: ${props => props.theme.colors.gold500};
+        opacity: 0;
+        animation: 0.5s ${fadeUp} 1.5s forwards;
         @media ${props => props.theme.bp.md} {
           width: unset;
         }
@@ -164,6 +169,8 @@ const StyledContact = styled(Root)`
     }
     .form-container {
       ${props => props.theme.boxSizes.default};
+      opacity: 0;
+      animation: 0.5s ${fadeUp} 1.75s forwards;
       @media ${props => props.theme.bp.md} {
         width: 50%;
       }
