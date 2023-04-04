@@ -12,12 +12,13 @@ import '@splidejs/react-splide/css';
 import { Splide, SplideTrack, SplideSlide } from '@splidejs/react-splide';
 import { useEffect, useState } from 'react';
 
-
 const inter = Inter({subsets: ['latin'], weight: ['300', '400', '500', '600', '700']});
 
 export default function REA(props) {
 
   const [activeImage, setActiveImage] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   let {
     Name,
     City,
@@ -28,12 +29,9 @@ export default function REA(props) {
   } = props.rea.data[0].attributes;
 
   const router = useRouter();
-
-  
-  // console.log(SliderImages);
   
   useEffect(() => {
-    if (SliderImages.data.filter(image => image.id === MainImage.data.id).length == 0) {
+    if (SliderImages.data && SliderImages.data.filter(image => image.id === MainImage.data.id).length == 0) {
       SliderImages.data.unshift(MainImage.data)
     }
   }, []);
@@ -67,73 +65,226 @@ export default function REA(props) {
         <main className="portfolio-item-details">
           <div className="main-content">
             <div className="header">
-              <div className="header-image">
-                <Image
-                  src={SliderImages.data[activeImage].attributes.url}
-                  fill
-                  alt={Name}
-                />
+              <div 
+                className="header-image"
+                onClick={() => {
+                  setIsModalOpen(!isModalOpen)
+                }}
+              >
+                {SliderImages.data ? (
+                  <Image
+                    src={SliderImages.data[activeImage].attributes.url}
+                    fill
+                    alt={Name}
+                  />
+                ) : (
+                  <Image
+                    src={MainImage.data.attributes.url}
+                    fill
+                    alt={Name}
+                  />
+                )}
               </div>
-              <div className="slider slider-mobile">
-                <Splide
-                  onActive={
-                    (e) => {
-                      setActiveImage(e.index)
+              {SliderImages.data && (
+                <div className="slider slider-mobile">
+                  <Splide
+                    onActive={
+                      (e) => {
+                        setActiveImage(e.index)
+                      }
                     }
-                  }
-                  options={{
-                    type: 'loop',
-                    perPage: 3,
-                    perMove: 1,
-                    pagination: false
-                  }}
-                  hasTrack={false}
-                >
-                  <SplideTrack>
-                    {SliderImages.data.map((image, index) => (
-                      <SplideSlide key={index}>
-                        <div className="slide-image">
-                          <Image
-                            fill
-                            alt={image.attributes.name}
-                            src={image.attributes.url}
-                          />
-                        </div>
-                        <div className="index">
-                          <span>{index >= 10 ? index + 1 : '0' + (index + 1)}</span>
-                        </div>
-                      </SplideSlide>
-                    ))}
-                  </SplideTrack>
-                  <div className="splide__arrows">
-                    <button className="splide__arrow splide__arrow--prev">
-                      <Image
-                        fill
-                        src="/general/caret-left.svg"
-                        alt={'Previous'}
-                      />
-                    </button>
-                    <button className="splide__arrow splide__arrow--next">
-                      <Image
-                        fill
-                        src="/general/caret-right.svg"
-                        alt={'Next'}
-                      />
-                    </button>
-                  </div>
-                </Splide>
-              </div>
+                    options={{
+                      type: 'loop',
+                      perPage: 3,
+                      perMove: 1,
+                      pagination: false
+                    }}
+                    hasTrack={false}
+                  >
+                    <SplideTrack>
+                      {SliderImages.data.map((image, index) => (
+                        <SplideSlide key={index}>
+                          <div className="slide-image">
+                            <Image
+                              fill
+                              alt={image.attributes.name}
+                              src={image.attributes.url}
+                            />
+                          </div>
+                          <div className="index">
+                            <span>{index >= 10 ? index + 1 : '0' + (index + 1)}</span>
+                          </div>
+                        </SplideSlide>
+                      ))}
+                    </SplideTrack>
+                    <div className="splide__arrows">
+                      <button className="splide__arrow splide__arrow--prev">
+                        <Image
+                          fill
+                          src="/general/caret-left.svg"
+                          alt={'Previous'}
+                        />
+                      </button>
+                      <button className="splide__arrow splide__arrow--next">
+                        <Image
+                          fill
+                          src="/general/caret-right.svg"
+                          alt={'Next'}
+                        />
+                      </button>
+                    </div>
+                  </Splide>
+                </div>
+              )}
               <span className={`city ${inter.className}`}>{City}</span>
               <h1>{Name}</h1>
             </div>
-            <div className="body">
-              <ReactMarkdown className={inter.className}>
-                {Description}
-              </ReactMarkdown>
-            </div>
+            {Description && (
+              <div className="body">
+                <ReactMarkdown className={inter.className}>
+                  {Description}
+                </ReactMarkdown>
+              </div>
+            )}
           </div>
           <div className="slider slider-desktop">
-
+            <Splide
+              onActive={
+                (e) => {
+                  setActiveImage(e.index)
+                }
+              }
+              options={{
+                type: 'loop',
+                direction: 'ttb',
+                height: '43rem',
+                perPage: 3,
+                perMove: 1,
+                pagination: false
+              }}
+              hasTrack={false}
+            >
+              <SplideTrack>
+                {SliderImages.data.map((image, index) => (
+                  <SplideSlide key={index}>
+                    <div className="slide-image">
+                      <Image
+                        fill
+                        alt={image.attributes.name}
+                        src={image.attributes.url}
+                      />
+                    </div>
+                    <div className="index">
+                      <span>{index >= 10 ? index + 1 : '0' + (index + 1)}</span>
+                    </div>
+                  </SplideSlide>
+                ))}
+              </SplideTrack>
+              <div className="splide__arrows">
+                <button className="splide__arrow splide__arrow--prev">
+                  <Image
+                    fill
+                    src="/general/caret-left.svg"
+                    alt={'Previous'}
+                  />
+                </button>
+                <button className="splide__arrow splide__arrow--next">
+                  <Image
+                    fill
+                    src="/general/caret-right.svg"
+                    alt={'Next'}
+                  />
+                </button>
+              </div>
+            </Splide>
+          </div>
+          <div className={`modal ${isModalOpen ? 'open' : ''}`}>
+            <div 
+              className="close-modal" 
+              onClick={() => {
+                setIsModalOpen(false)
+              }}
+            >
+              <Image
+                src={'/general/close.svg'}
+                fill
+                alt={'Close'}
+              />
+            </div>
+            <div className="modal-body">
+              <div className="main-image">
+                {SliderImages.data ? (
+                  <Image
+                    src={SliderImages.data[activeImage].attributes.url}
+                    fill
+                    alt={Name}
+                  />
+                ) : (
+                  <Image
+                    src={MainImage.data.attributes.url}
+                    fill
+                    alt={Name}
+                  />
+                )}
+              </div>
+              {SliderImages.data && (
+                <div className="slider slider-mobile">
+                  <Splide
+                    onActive={
+                      (e) => {
+                        setActiveImage(e.index)
+                      }
+                    }
+                    options={{
+                      type: 'loop',
+                      perPage: 3,
+                      perMove: 1,
+                      pagination: false
+                    }}
+                    hasTrack={false}
+                  >
+                    <SplideTrack>
+                      {SliderImages.data.map((image, index) => (
+                        <SplideSlide key={index}>
+                          <div className="slide-image">
+                            <Image
+                              fill
+                              alt={image.attributes.name}
+                              src={image.attributes.url}
+                            />
+                          </div>
+                          <div className="index">
+                            <span>{index >= 10 ? index + 1 : '0' + (index + 1)}</span>
+                          </div>
+                        </SplideSlide>
+                      ))}
+                    </SplideTrack>
+                    <div className="splide__arrows">
+                      <button className="splide__arrow splide__arrow--prev">
+                        <Image
+                          fill
+                          src="/general/caret-left.svg"
+                          alt={'Previous'}
+                        />
+                      </button>
+                      <button className="splide__arrow splide__arrow--next">
+                        <Image
+                          fill
+                          src="/general/caret-right.svg"
+                          alt={'Next'}
+                        />
+                      </button>
+                    </div>
+                  </Splide>
+                </div>
+              )}
+            </div>
+            <div 
+              className="underlay"
+              onClick={() => {
+                setIsModalOpen(false)
+              }}
+            />
           </div>
         </main>
       </StyledRoot>
@@ -191,11 +342,17 @@ const StyledRoot = styled(Root)`
           font-size: 1.625rem;
           margin-bottom: 0.5rem;
           font-weight: 300;
+          @media ${props => props.theme.bp.md} {
+            font-size: 2rem;
+          }
         }
         h1 {
           color: ${props => props.theme.colors.gold900};
           font-weight: 700;
           font-size: 4.125rem;
+          @media ${props => props.theme.bp.md} {
+            font-size: 5rem;
+          }
         }
       }
       .body {
@@ -205,21 +362,130 @@ const StyledRoot = styled(Root)`
         font-size: 1.625rem;
         font-weight: 300;
         line-height: 2.437rem;
+        @media ${props => props.theme.bp.md} {
+          font-size: 2rem;
+          line-height: 2.7rem;
+        }
         p, li {
           margin-bottom: 1.5rem;
         }
       }
     }
-    .slider {
-      /* display: flex; */
-      justify-content: center;
+  }
+  .modal {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.25s ease-in-out all;
+    &.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .close-modal {
+      position: absolute;
+      top: 0;
+      width: 2rem;
+      height: 2rem;
+      z-index: 1;
+      top: 3.5rem;
+      right: 3.5rem;
+      @media ${props => props.theme.bp.md} {
+        right: 6.5rem;
+      }
+
+    }
+    .modal-body {
       position: relative;
+      z-index: 1;
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .slider {
+        display: block;
+        width: 100%;
+      }
+      .main-image {
+        ${props => props.theme.boxSizes.default};
+        border: 1.25rem solid ${props => props.theme.colors.offWhite};
+        box-shadow: 0 0 0px 1px ${props => props.theme.colors.gold50};
+        height: 27.25rem;
+        position: relative;
+        margin-bottom: 4rem;
+        max-width: 39rem;
+        @media ${props => props.theme.bp.md} {
+          height: 49.25rem;
+          max-width: 75.5rem;
+        }
+        @media ${props => props.theme.bp.xl} {
+          height: 66.5rem;
+          max-width: 102.5rem;
+        }
+        img {
+          object-fit: cover;
+          object-position: center;
+        }
+      }
+    }
+    .underlay {
+      background: hsla(40, 100%, 99%, 0.9);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: inherit;
+      height: inherit;
+      backdrop-filter: blur(3px);
+    }
+  }
+  .slider {
+    /* display: flex; */
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    &.slider-mobile {
+      @media ${props => props.theme.bp.md} {
+        display: none;
+      }
+    }
+    &.slider-desktop {
+      display: none;
+      width: 9rem;
+      @media ${props => props.theme.bp.md} {
+        display: block;
+      }
       .splide {
         .splide__track {
-          width: 33.625rem;
-          margin: 0 auto;
+          width: unset;
+          margin: unset;
+          .splide__list {
+            .splide__slide {
+              width: 9rem;
+            }
+          }
         }
+        .splide__arrows {
+          width: 9rem;
+          left: 1.5rem;
+          top: 50rem;
+          transform: rotate(90deg);
+          .splide__arrow--prev {
+            display: none;
+          }
+        }
+      }
+    }
+    .splide {
+      .splide__track {
+        width: 33.625rem;
+        margin: 0 auto;
         .splide__list {
           .splide__slide {
             display: flex;
@@ -244,33 +510,34 @@ const StyledRoot = styled(Root)`
             }
           }
         }
-        .splide__arrows {
-          position: absolute;
-          top: 4rem;
-          width: 100%;
-          .splide__arrow {
-            background: transparent;
-            width: 1.5rem;
-            height: 3rem;
-            top: 0;
-            outline: none;
-            img {
-              object-fit: cover;
-              object-position: center;
-            }
-          }
-          .splide__arrow--prev {
-            left: 0;
-          }
-          .splide__arrow--next {
-            right: 0;
-            /* transform: rotate(180deg); */
+      }
+      .splide__arrows {
+        position: absolute;
+        top: 4rem;
+        width: 40rem;
+        left: calc(50% - 20rem);
+        .splide__arrow {
+          background: transparent;
+          width: 1.5rem;
+          height: 3rem;
+          top: 0;
+          outline: none;
+          img {
+            object-fit: cover;
+            object-position: center;
           }
         }
+        .splide__arrow--prev {
+          left: 0;
+        }
+        .splide__arrow--next {
+          right: 0;
+          /* transform: rotate(180deg); */
+        }
       }
-      @media ${props => props.theme.bp.md} {
-        width: 14rem;
-      }
+    }
+    @media ${props => props.theme.bp.md} {
+      width: 14rem;
     }
   }
 `;

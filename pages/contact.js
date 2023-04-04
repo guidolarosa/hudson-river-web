@@ -18,7 +18,7 @@ const Contact = (props) => {
   });
 
   useEffect(() => {
-    console.log(formData);
+    // console.log(formData);
   })
   
   const onFormSubmit = (e) => {
@@ -193,7 +193,7 @@ const StyledContact = styled(Root)`
             margin-bottom: 0.5rem;
           }
         }
-        @media ${props => props.theme.bp.md} {
+        @media ${props => props.theme.bp.lg} {
           flex-direction: row;
           .input-group {
             flex-grow: 1;
