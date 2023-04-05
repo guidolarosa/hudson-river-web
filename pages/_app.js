@@ -10,9 +10,6 @@ export default function App({ Component, pageProps }) {
       <PageTransition timeout={300} classNames="page-transition">
         <Component {...pageProps}/>
       </PageTransition>
-      <style jsx global>{`
-        
-      `}</style>
     </ThemeProvider>
   )
 }

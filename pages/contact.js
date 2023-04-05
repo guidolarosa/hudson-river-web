@@ -3,18 +3,70 @@ import Head from 'next/head'
 import Image from 'next/image';
 import Root from '@/components/Root';
 import { Inter } from '@next/font/google';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { fadeUp } from '@/theme/animations';
 import { sanitizeString, validateEmail } from '@/utils/utils';
 import { herokuUrl } from '@/utils/constants';
+import mapboxgl from 'mapbox-gl';
+
 
 const inter = Inter({subsets: ['latin']});
 
 const Contact = (props) => {
 
+  mapboxgl.accessToken = 'pk.eyJ1IjoiaHVkc29ucml2ZXIiLCJhIjoiY2xnNDBjM2N4MGdvZDNxcWk1bmp1NXhrcCJ9.EwqxmMnu7VG6XoPHyLSYYg';
+
   const [allInputsFilled, setAllInputdsFilled] = useState(false);
   const [triedSubmit, setTriedSubmit] = useState(false);
   const [formSubmited, setFormSubmited] = useState(false);
+
+  const defaultCoord = {
+    lat: 40.721181,
+    lng: -74.005887
+  }
+
+  const mapContainer = useRef(null);
+  const map = useRef(null);
+
+  const [lng, setLng] = useState(defaultCoord.lng);
+  const [lat, setLat] = useState(defaultCoord.lat);
+  const [zoom, setZoom] = useState(11);
+
+  const geojson = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [lng, lat]
+        },
+        properties: {
+          title: 'Hudson River',
+          description: 'Offices',
+        }
+      },
+    ]
+  };
+
+  useEffect(() => {
+    if (map.current) return; // initialize map only once
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current,
+      style: 'mapbox://styles/hudsonriver/clg40efwd00cr01nzey0cpm6c',
+      center: [lng, lat],
+      zoom: zoom
+    });
+
+    for (const feature of geojson.features) {
+      // create a HTML element for each feature
+      const el = document.createElement('div');
+      el.className = 'marker';
+    
+      // make a marker for each feature and add to the map
+      new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(map.current);
+    }
+  });
 
   const [formData, setFormData] = useState({
     Name: {
@@ -96,9 +148,23 @@ const Contact = (props) => {
       </Head>
       <StyledContact>
         <div className="contact-container">
-          <div className="map-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.871772882933!2d-74.0059727!3d40.7208392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2598ad0fd2777%3A0xf5eed8f68af0cf!2s6%20St%20Johns%20Ln%2C%20New%20York%2C%20NY%2010013%2C%20USA!5e0!3m2!1sen!2sar!4v1679672191699!5m2!1sen!2sar" width="100%" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
-            <strong>6 St. Johns Ln, New York, NY</strong>
+          <div className="location">
+            <div ref={mapContainer} className="map-container">
+              {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.871772882933!2d-74.0059727!3d40.7208392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2598ad0fd2777%3A0xf5eed8f68af0cf!2s6%20St%20Johns%20Ln%2C%20New%20York%2C%20NY%2010013%2C%20USA!5e0!3m2!1sen!2sar!4v1679672191699!5m2!1sen!2sar" width="100%" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe> */}
+              {/* <Map
+                bootstrapURLKeys={{ key: "" }}
+                defaultCenter={{
+                  lat: 40.721181, 
+                  lng: -74.005887
+                }}
+                defaultZoom={11}
+              /> */}
+            </div>
+            <address>
+              <strong>
+                6 St. Johns Ln, New York, NY
+              </strong>
+            </address>
           </div>
           <div className="form-container">
             <h1>Stay in touch</h1>
@@ -211,35 +277,53 @@ const StyledContact = styled(Root)`
     @media ${props => props.theme.bp.xl} {
       max-width: calc(100vw - 65.75rem);
     }
-    .map-container,
+    .location,
     .form-container {
       @media ${props => props.theme.bp.md} {
         width: 50%;
       }
     }
-    .map-container {
-      iframe {
+    .location {
+      .map-container {
         height: 30rem;
-        border: 0;
-        background: ${props => props.theme.colors.gold500};
-        filter: grayscale(1);
-        opacity: 0;
-        animation: 0.5s ${fadeUp} 1.5s forwards;
+        /* overflow: hidden; */
+        .marker {
+          background-image: url('/general/marker.png');
+          background-size: cover;
+          width: 3rem;
+          height: 3rem;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+        .mapboxgl-control-container {
+          display: none;
+        }
         @media ${props => props.theme.bp.xl} {
           height: 60rem;
         }
+        iframe {
+          border: 0;
+          background: ${props => props.theme.colors.gold500};
+          opacity: 0;
+          animation: 0.5s ${fadeUp} 1.5s forwards;
+          width: 100%;
+          height: 100%;
+        }
       }
-      strong {
-        ${props => props.theme.boxSizes.default};
-        display: block;
-        margin-top: 3rem;
-        font-size: 2.375rem;
+      address {
+        font-style: normal;
         font-weight: 400;
-        color: ${props => props.theme.colors.gold500};
-        opacity: 0;
-        animation: 0.5s ${fadeUp} 1.5s forwards;
-        @media ${props => props.theme.bp.md} {
-          width: unset;
+        strong {
+          ${props => props.theme.boxSizes.default};
+          display: block;
+          font-size: 2.375rem;
+          margin-top: 3rem;
+          color: ${props => props.theme.colors.gold500};
+          opacity: 0;
+          animation: 0.5s ${fadeUp} 1.5s forwards;
+          @media ${props => props.theme.bp.md} {
+            width: unset;
+          }
         }
       }
     }
