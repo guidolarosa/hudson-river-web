@@ -9,7 +9,7 @@ const GlobalStyles = createGlobalStyle`
     color: ${props => props.theme.colors.gold900};
     font-size: 8px;
   }
-
+  
   body {
     margin: 0;
   }

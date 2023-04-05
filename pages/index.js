@@ -69,9 +69,22 @@ const StyledRoot = styled(Root)`
     height: 100%;
     flex-grow: 1;
     position: relative;
+    background: #ebebed;
+    overflow: hidden;
     .hero-background {
       object-fit: cover;
-      object-position: 80% 0;
+      object-position: 45% 0;
+      @media ${props => props.theme.bp.md} {
+        object-position: 80% 20%;
+      }
+      @media ${props => props.theme.bp.lg} {
+        object-position: 80% 0rem;
+        transform: scale(1.5) translateX(-25rem);
+      }
+      @media ${props => props.theme.bp.xl} {
+        object-position: 80% -5rem;
+        transform: scale(1.5) translateX(-25rem);
+      }
       &.hero-background-mobile {
         @media ${props => props.theme.bp.md} {
           display: none;

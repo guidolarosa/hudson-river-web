@@ -69,6 +69,10 @@ const StyledNavbar = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background: ${props => props.theme.colors.offWhite};
+  z-index: 2;
+  position: relative;
+  width: 100vw;
   @media ${props => props.theme.bp.lg} {
     height: 15rem;
   }

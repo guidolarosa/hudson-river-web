@@ -229,6 +229,9 @@ const StyledRoot = styled(Root)`
             }
           }
           .body {
+            @media ${props => props.theme.bp.md} {
+              overflow: hidden;
+            }
             h2,
             .city {
               transition: 0.25s ease-in-out color;
@@ -254,6 +257,14 @@ const StyledRoot = styled(Root)`
               @media ${props => props.theme.bp.lg} {
                 font-size: 5rem;
                 line-height: 6rem;
+              }
+              @media ${props => props.theme.bp.md} {
+                text-overflow: ellipsis;
+                width: 100%;
+                overflow: hidden;
+                line-clamp: 1;
+                white-space: nowrap;
+
               }
             }
           }
