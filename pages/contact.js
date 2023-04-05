@@ -16,7 +16,7 @@ const Contact = (props) => {
 
   mapboxgl.accessToken = 'pk.eyJ1IjoiaHVkc29ucml2ZXIiLCJhIjoiY2xnNDBjM2N4MGdvZDNxcWk1bmp1NXhrcCJ9.EwqxmMnu7VG6XoPHyLSYYg';
 
-  const [allInputsFilled, setAllInputdsFilled] = useState(false);
+  const [allInputsFilled, setAllInputsFilled] = useState(false);
   const [triedSubmit, setTriedSubmit] = useState(false);
   const [formSubmited, setFormSubmited] = useState(false);
 
@@ -92,12 +92,11 @@ const Contact = (props) => {
     if (
       Name.value.length > 0 &&
       Email.value.length > 0 &&
-      Phone.value.length > 0 &&
       Message.value.length > 0
     ) {
-      setAllInputdsFilled(true)
+      setAllInputsFilled(true)
     } else {
-      setAllInputdsFilled(false)
+      setAllInputsFilled(false)
     }
   }, [formData]);
 
@@ -106,10 +105,12 @@ const Contact = (props) => {
       method: 'POST',
       body: JSON.stringify({
         data: {
-          Name: sanitizeString(formData.Name.value),
-          Email: sanitizeString(formData.Email.value),
-          Phone: formData.Phone.value,
-          Message: sanitizeString(formData.Message.value),
+          Name: formData.Name.value,
+          Email: formData.Email.value,
+          Phone: formData.Phone.value.length === 0 ?
+            'No phone number provided' :
+            formData.Phone.value,
+          Message: formData.Message.value,
         }
       }),
       headers: {
@@ -126,12 +127,11 @@ const Contact = (props) => {
     e.preventDefault();
     setTriedSubmit(true);
 
-    const {Name, Email, Phone, Message} = formData;
+    const {Name, Email, Message, Phone} = formData;
 
     if (
       Name.valid &&
       Email.valid &&
-      Phone.valid &&
       Message.valid
     ) {
       sendFormData();
@@ -149,17 +149,7 @@ const Contact = (props) => {
       <StyledContact>
         <div className="contact-container">
           <div className="location">
-            <div ref={mapContainer} className="map-container">
-              {/* <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.871772882933!2d-74.0059727!3d40.7208392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2598ad0fd2777%3A0xf5eed8f68af0cf!2s6%20St%20Johns%20Ln%2C%20New%20York%2C%20NY%2010013%2C%20USA!5e0!3m2!1sen!2sar!4v1679672191699!5m2!1sen!2sar" width="100%" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe> */}
-              {/* <Map
-                bootstrapURLKeys={{ key: "" }}
-                defaultCenter={{
-                  lat: 40.721181, 
-                  lng: -74.005887
-                }}
-                defaultZoom={11}
-              /> */}
-            </div>
+            <div ref={mapContainer} className="map-container" />
             <address>
               <strong>
                 6 St. Johns Ln, New York, NY
@@ -213,7 +203,7 @@ const Contact = (props) => {
                   <div className="alert">Something is wrong</div>
                 </div>
                 <div className="input-group">
-                  <label for="phone">Phone <span>*</span></label>
+                  <label for="phone">Phone</label>
                   <input 
                     type="tel" 
                     placeholder="Enter your phone" 
@@ -247,11 +237,11 @@ const Contact = (props) => {
                   }}
                 />
               </div>
-              <div className="input-group">
+              <div className="input-group submit">
                 <button 
                   className={`${allInputsFilled ? 'enabled' : ''}`}
                 >
-                  Submit
+                  {formSubmited ? 'Thanks!' : 'Submit'}
                 </button>
               </div>
             </form>
@@ -333,6 +323,21 @@ const StyledContact = styled(Root)`
       animation: 0.5s ${fadeUp} 1.75s forwards;
       @media ${props => props.theme.bp.md} {
         width: 50%;
+      }
+      form {
+        &.submited {
+          .input-group {
+            opacity: 0.5;
+          }
+          .submit {
+            opacity: 1;
+            button {
+              color: ${props => props.theme.colors.gold25};
+              border-color: ${props => props.theme.colors.gold500};
+              background: ${props => props.theme.colors.gold500};
+            }
+          }
+        }
       }
       h1 {
         margin-top: 7rem;

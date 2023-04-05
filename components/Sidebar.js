@@ -1,16 +1,38 @@
 import styled from 'styled-components';
 import { fadeUp } from '@/theme/animations';
+import { useEffect, useRef } from 'react';
 
 const Sidebar = (props) => {
+
+  const sidebarRef = useRef(null);
+
+  const onScroll = (e) => {
+    if (window.scrollY > 120) {
+      sidebarRef.current.style.position = 'fixed'
+      sidebarRef.current.style.top = '48px'
+    } else {
+      sidebarRef.current.style.position = 'absolute'
+      sidebarRef.current.style.top = '168px'
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('scroll', onScroll);
+    
+    return () => {
+      document.removeEventListener('scroll', onScroll);
+    }
+  }, []);
+
   return (
-    <StyledSidebar className={'sidebar'}>
+    <StyledSidebar className={'sidebar'} ref={sidebarRef}>
       {props.children}
     </StyledSidebar>
   )
 }
 
 const StyledSidebar = styled.div`
-  position: fixed;
+  position: absolute;
   width: 25rem;
   ul {
     li {

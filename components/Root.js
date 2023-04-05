@@ -7,7 +7,7 @@ const cormorantGaramond = Cormorant_Garamond({subsets: ['latin'], weight: ['300'
 const Root = (props) => {
   return (
     <div className={`${cormorantGaramond.className}`}>
-      <Navbar/>
+      <Navbar isIndex={props.isIndex} />
       <StyledRoot {...props}>
         {props.children}
         {/* <Footer /> */}
@@ -17,9 +17,12 @@ const Root = (props) => {
 };
 
 const StyledRoot = styled.div`
-  min-height: 100vh;
+  min-height: calc(100vh - 10rem);
   display: flex;
   flex-direction: column;
+  @media ${props => props.theme.bp.lg} {
+    min-height: calc(100vh - 15rem);
+  }
 `;
 
 export default Root;

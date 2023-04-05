@@ -94,12 +94,15 @@ const StyledAbout = styled(Root)`
     .about-image-container {
       position: relative;
       width: 100%;
-      height: 22.5rem;
+      height: 31rem;
       margin-top: 2rem;
       opacity: 0;
       animation: 0.5s ${fadeUp} 1.25s forwards;
       .about-image {
         object-fit: cover;
+      }
+      @media ${props => props.theme.bp.sm} {
+        height: 22.5rem;
       }
       @media ${props => props.theme.bp.md} {
         margin-top: 0;

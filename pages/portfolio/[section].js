@@ -184,6 +184,14 @@ const StyledRoot = styled(Root)`
               color: ${props => props.theme.colors.gold500};
             }
           }
+          .portfolio-item-card {
+            .header {
+              .image {
+                border: 1rem solid ${props => props.theme.colors.gold25};
+                width: 80%;
+              }
+            }
+          }
         }
         .portfolio-item-card {
           margin-bottom: 2rem;
@@ -201,6 +209,8 @@ const StyledRoot = styled(Root)`
               position: relative;
               height: 25rem;
               width: 100%;
+              transition: 0.35s ease-in-out all;
+              border: 0rem solid ${props => props.theme.colors.gold25};
               @media ${props => props.theme.bp.lg} {
                 height: 35.25rem;
               }
@@ -229,7 +239,7 @@ const StyledRoot = styled(Root)`
             h2 {
               margin-bottom: 1rem;
               font-size: 4rem;
-              font-weight: 700;
+              font-weight: 600;
               line-height: 4.5rem;
               opacity: 0;
               animation: 0.25s ${fadeUp} ease-out 2s forwards;

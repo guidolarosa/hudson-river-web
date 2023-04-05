@@ -13,7 +13,7 @@ const Navbar = (props) => {
   const router = useRouter();
 
   return (
-    <StyledNavbar>
+    <StyledNavbar {...props} isIndex={props.isIndex}>
       <div className="inner-navbar-container">
         <div className="logo-container">
           <Link href="/">
@@ -79,7 +79,8 @@ const StyledNavbar = styled.div`
     justify-content: space-between;
     z-index: 3;
     opacity: 0;
-    animation: 0.25s ${fadeDown} forwards ease-out 1s;
+    animation: 1s ${fadeDown} forwards ease-out;
+    animation-delay: ${props => props.isIndex ? '2.25s' : '1s'};
     .logo-container {
       width: 20rem;
       height: 4rem;
@@ -100,17 +101,27 @@ const StyledNavbar = styled.div`
             text-transform: uppercase;
             font-weight: 500;
             letter-spacing: 0.03em;
+            position: relative;
+            &:after {
+              bottom: -0.5rem;
+              left: 0;
+              width: 0;
+              height: 1px;
+              position: absolute;
+              content: '';
+              background: ${props => props.theme.colors.gold100};
+              transition: 0.25s ease-in-out all;
+            }
+            &:hover {
+              &:after {
+                width: 100%;
+              }
+            }
             &.current {
               color: ${props => props.theme.colors.gold500};
               position: relative;
               &:after {
-                bottom: -1rem;
-                left: 0;
                 width: 100%;
-                height: 1px;
-                position: absolute;
-                content: '';
-                background: ${props => props.theme.colors.gold100};
               }
             }
           }

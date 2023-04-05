@@ -228,7 +228,7 @@ const StyledRoot = styled(Root)`
         }
         h1 {
           color: ${props => props.theme.colors.gold900};
-          font-weight: 700;
+          font-weight: 600;
           font-size: 4.125rem;
           @media ${props => props.theme.bp.md} {
             font-size: 5rem;

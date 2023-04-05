@@ -13,7 +13,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
       </Head>
-      <StyledRoot>
+      <StyledRoot isIndex={true}>
         <div className="init-animation">
           <div className="init-image">
             <object 
@@ -50,6 +50,7 @@ const fadeOut = keyframes`
 `;
 
 const StyledRoot = styled(Root)`
+  /* height: calc(100vh - 10rem); */
   .init-animation {
     background: ${props => props.theme.colors.offWhite};
     width: 100%;

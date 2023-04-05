@@ -1,4 +1,5 @@
 const bp = {
+  sm: `(max-width: 360px)`,
   md: `(min-width: 768px)`,
   lg: `(min-width: 1280px)`,
   xl: `(min-width: 1600px)`,
