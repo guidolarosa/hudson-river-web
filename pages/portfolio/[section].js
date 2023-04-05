@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { fadeUp } from '@/theme/animations';
 import { keyframes } from 'styled-components';
+import PortfolioList from '@/components/PortfolioList';
 
 const inter = Inter({subsets: ['latin'], weight: ['300', '400', '500', '600', '700']});
 
@@ -60,84 +61,22 @@ export default function Portfolio(props) {
           </ul>
         </Sidebar>
         <main className="list-content">
-          <div className={`rea portfolio-list ${currentView === 'real-estate-acquisitions' ? 'show' : ''}`}>
-            <div 
-              className="list-visibility-toggle" 
-              onClick={() => { 
-                handleToggleClick('real-estate-acquisitions') 
-              }}
-            >
-              <h1>Real Estate Acquisitions</h1>
-              <div className="chevron">
-                <Image
-                  fill
-                  src={'/general/chevron-down.svg'}
-                  alt={'Toggle'}
-                />
-              </div>
-            </div>
-            <ul>
-              {props.rea.data.map((content, index) => (
-                <li key={index}>
-                  <Link href={`/real-estate-acquisitions/${content.attributes.Slug}`}>
-                    <div className="portfolio-item-card">
-                      <div className="header">
-                        <div className="image">
-                          <Image
-                            fill
-                            src={content.attributes.MainImage.data.attributes.url}
-                            alt={content.attributes.Name}
-                          />
-                        </div>
-                      </div>
-                      <div className="body">
-                        <div className={`city ${inter.className}`}>{content.attributes.City}</div>
-                        <h2>{content.attributes.Name}</h2>
-                      </div>
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className={`investments portfolio-list ${currentView === 'investments' ? 'show' : ''}`}>
-            <div 
-              className="list-visibility-toggle" 
-              onClick={() => { handleToggleClick('investments') }}
-            >
-              <h1>Investments</h1>
-              <div className="chevron">
-                <Image
-                  fill
-                  src={'/general/chevron-down.svg'}
-                  alt={'Toggle'}
-                />
-              </div>
-            </div>
-            <ul>
-              {props.investments.data.map((content, index) => (
-                <li key={index}>
-                  <div className="portfolio-item-card">
-                    <div className="header">
-                      <div className="image">
-                        <Image
-                          fill
-                          src={content.attributes.MainImage.data.attributes.url}
-                          alt={content.attributes.Name}
-                        />
-                      </div>
-                    </div>
-                    <div className="body">
-                      <h2>{content.attributes.Name}</h2>
-                      <ReactMarkdown className={inter.className}>
-                        {content.attributes.Excerpt}
-                      </ReactMarkdown>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <PortfolioList 
+            className={'rea'}
+            isCurrentView={currentView === 'real-estate-acquisitions'}
+            data={props.rea.data}
+            handleToggleClick={handleToggleClick}
+            type={'rea'}
+            title={'Real Estate Acquisitions'}
+          />
+          <PortfolioList
+            className={'investments'}
+            isCurrentView={currentView === 'investments'}
+            data={props.investments.data}
+            handleToggleClick={handleToggleClick}
+            type={'investment'}
+            title={'Investments'}
+          />
         </main>
       </StyledRoot>
     </>
@@ -203,15 +142,15 @@ const StyledRoot = styled(Root)`
       }
       &.show {
         display: block;
+      }
+      &.toggle-open {
         .list-visibility-toggle {
           .chevron {
             transform: rotate(180deg);
           }
         }
         ul {
-          max-height: 300rem;;
-          @media ${props => props.theme.bp.lg} {
-          }
+          max-height: 300rem;
         }
       }
     }
