@@ -68,6 +68,13 @@ export default function Portfolio(props) {
               }}
             >
               <h1>Real Estate Acquisitions</h1>
+              <div className="chevron">
+                <Image
+                  fill
+                  src={'/general/chevron-down.svg'}
+                  alt={'Toggle'}
+                />
+              </div>
             </div>
             <ul>
               {props.rea.data.map((content, index) => (
@@ -99,6 +106,13 @@ export default function Portfolio(props) {
               onClick={() => { handleToggleClick('investments') }}
             >
               <h1>Investments</h1>
+              <div className="chevron">
+                <Image
+                  fill
+                  src={'/general/chevron-down.svg'}
+                  alt={'Toggle'}
+                />
+              </div>
             </div>
             <ul>
               {props.investments.data.map((content, index) => (
@@ -164,16 +178,24 @@ const StyledRoot = styled(Root)`
       display: none;
       display: block;
       .list-visibility-toggle {
-        display: block;
+        display: flex;
+        border-bottom: 1px solid ${props => props.theme.colors.gold100};
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+        align-items: center;
+        justify-content: space-between;
         @media ${props => props.theme.bp.lg} {
           display: none;
         }
         h1 {
           cursor: pointer;
-          margin-bottom: 2rem;
-          padding: 2rem 0;
-          border-bottom: 1px solid ${props => props.theme.colors.gold100};
           font-size: 4.125rem;
+        }
+        .chevron {
+          position: relative;
+          width: 3rem;
+          height: 3rem;
+          transition: 0.25s ease-in-out all;
         }
       }
       @media ${props => props.theme.bp.lg} {
@@ -181,6 +203,11 @@ const StyledRoot = styled(Root)`
       }
       &.show {
         display: block;
+        .list-visibility-toggle {
+          .chevron {
+            transform: rotate(180deg);
+          }
+        }
         ul {
           max-height: 300rem;;
           @media ${props => props.theme.bp.lg} {
@@ -195,7 +222,7 @@ const StyledRoot = styled(Root)`
       width: 100%;
       overflow-y: hidden;
       max-height: 0;
-      transition: 0.25s ease-in-out all;
+      transition: 0.5s ease-in-out all;
       @media ${props => props.theme.bp.lg} {
         overflow-y: visible;
         max-height: unset;

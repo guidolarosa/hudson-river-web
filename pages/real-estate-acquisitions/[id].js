@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import '@splidejs/react-splide/css';
 import { Splide, SplideTrack, SplideSlide } from '@splidejs/react-splide';
 import { useEffect, useState } from 'react';
+import Slider from '@/components/Slider';
 
 const inter = Inter({subsets: ['latin'], weight: ['300', '400', '500', '600', '700']});
 
@@ -24,17 +25,21 @@ export default function REA(props) {
     City,
     Description,
     MainImage,
-    Slug,
     SliderImages
   } = props.rea.data[0].attributes;
 
   const router = useRouter();
+
+  useEffect(() => {
+    console.log(activeImage);
+    // console.log(new Date().getMilliseconds())
+  }, [activeImage])
   
   useEffect(() => {
     if (SliderImages.data && SliderImages.data.filter(image => image.id === MainImage.data.id).length == 0) {
       SliderImages.data.unshift(MainImage.data)
     }
-  }, []);
+  }, [SliderImages, MainImage]);
 
   return (
     <>
@@ -71,6 +76,18 @@ export default function REA(props) {
                   setIsModalOpen(!isModalOpen)
                 }}
               >
+                <div 
+                  className="screen-size" 
+                  onClick={() => {
+                    setIsModalOpen(true)
+                  }}
+                >
+                  <Image
+                    fill
+                    src={'/general/screen-size.svg'}
+                    alt="View image"
+                  />
+                </div>
                 {SliderImages.data ? (
                   <Image
                     src={SliderImages.data[activeImage].attributes.url}
@@ -85,57 +102,11 @@ export default function REA(props) {
                   />
                 )}
               </div>
-              {SliderImages.data && (
-                <div className="slider slider-mobile">
-                  <Splide
-                    onActive={
-                      (e) => {
-                        setActiveImage(e.index)
-                      }
-                    }
-                    options={{
-                      type: 'loop',
-                      perPage: 3,
-                      perMove: 1,
-                      pagination: false
-                    }}
-                    hasTrack={false}
-                  >
-                    <SplideTrack>
-                      {SliderImages.data.map((image, index) => (
-                        <SplideSlide key={index}>
-                          <div className="slide-image">
-                            <Image
-                              fill
-                              alt={image.attributes.name}
-                              src={image.attributes.url}
-                            />
-                          </div>
-                          <div className="index">
-                            <span>{index >= 10 ? index + 1 : '0' + (index + 1)}</span>
-                          </div>
-                        </SplideSlide>
-                      ))}
-                    </SplideTrack>
-                    <div className="splide__arrows">
-                      <button className="splide__arrow splide__arrow--prev">
-                        <Image
-                          fill
-                          src="/general/caret-left.svg"
-                          alt={'Previous'}
-                        />
-                      </button>
-                      <button className="splide__arrow splide__arrow--next">
-                        <Image
-                          fill
-                          src="/general/caret-right.svg"
-                          alt={'Next'}
-                        />
-                      </button>
-                    </div>
-                  </Splide>
-                </div>
-              )}
+              <Slider
+                setActiveImage={setActiveImage}
+                sliderImages={SliderImages.data}
+                type={'mobile'}
+              />
               <span className={`city ${inter.className}`}>{City}</span>
               <h1>{Name}</h1>
             </div>
@@ -147,60 +118,11 @@ export default function REA(props) {
               </div>
             )}
           </div>
-          {SliderImages.data && (
-
-            <div className="slider slider-desktop">
-              <Splide
-                onActive={
-                  (e) => {
-                    setActiveImage(e.index)
-                  }
-                }
-                options={{
-                  type: 'loop',
-                  direction: 'ttb',
-                  height: '43rem',
-                  perPage: 3,
-                  perMove: 1,
-                  pagination: false
-                }}
-                hasTrack={false}
-              >
-                <SplideTrack>
-                  {SliderImages.data.map((image, index) => (
-                    <SplideSlide key={index}>
-                      <div className="slide-image">
-                        <Image
-                          fill
-                          alt={image.attributes.name}
-                          src={image.attributes.url}
-                        />
-                      </div>
-                      <div className="index">
-                        <span>{index >= 10 ? index + 1 : '0' + (index + 1)}</span>
-                      </div>
-                    </SplideSlide>
-                  ))}
-                </SplideTrack>
-                <div className="splide__arrows">
-                  <button className="splide__arrow splide__arrow--prev">
-                    <Image
-                      fill
-                      src="/general/caret-left.svg"
-                      alt={'Previous'}
-                    />
-                  </button>
-                  <button className="splide__arrow splide__arrow--next">
-                    <Image
-                      fill
-                      src="/general/caret-right.svg"
-                      alt={'Next'}
-                    />
-                  </button>
-                </div>
-              </Splide>
-            </div>
-          )}
+          <Slider
+            setActiveImage={setActiveImage}
+            sliderImages={SliderImages.data}
+            type={'desktop'}
+          />
           <div className={`modal ${isModalOpen ? 'open' : ''}`}>
             <div 
               className="close-modal" 
@@ -230,57 +152,11 @@ export default function REA(props) {
                   />
                 )}
               </div>
-              {SliderImages.data && (
-                <div className="slider slider-mobile">
-                  <Splide
-                    onActive={
-                      (e) => {
-                        setActiveImage(e.index)
-                      }
-                    }
-                    options={{
-                      type: 'loop',
-                      perPage: 3,
-                      perMove: 1,
-                      pagination: false
-                    }}
-                    hasTrack={false}
-                  >
-                    <SplideTrack>
-                      {SliderImages.data.map((image, index) => (
-                        <SplideSlide key={index}>
-                          <div className="slide-image">
-                            <Image
-                              fill
-                              alt={image.attributes.name}
-                              src={image.attributes.url}
-                            />
-                          </div>
-                          <div className="index">
-                            <span>{index >= 10 ? index + 1 : '0' + (index + 1)}</span>
-                          </div>
-                        </SplideSlide>
-                      ))}
-                    </SplideTrack>
-                    <div className="splide__arrows">
-                      <button className="splide__arrow splide__arrow--prev">
-                        <Image
-                          fill
-                          src="/general/caret-left.svg"
-                          alt={'Previous'}
-                        />
-                      </button>
-                      <button className="splide__arrow splide__arrow--next">
-                        <Image
-                          fill
-                          src="/general/caret-right.svg"
-                          alt={'Next'}
-                        />
-                      </button>
-                    </div>
-                  </Splide>
-                </div>
-              )}
+              <Slider
+                setActiveImage={setActiveImage}
+                sliderImages={SliderImages.data}
+                type={'mobile'}
+              />
             </div>
             <div 
               className="underlay"
@@ -332,6 +208,14 @@ const StyledRoot = styled(Root)`
           margin-bottom: 2rem;
           @media ${props => props.theme.bp.md} {
             height: 53rem;
+          }
+          .screen-size {
+            width: 3rem;
+            height: 3rem;
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 1;
           }
           img {
             object-fit: cover;
