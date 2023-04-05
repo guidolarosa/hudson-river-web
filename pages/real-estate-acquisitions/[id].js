@@ -3,15 +3,13 @@ import Root from '@/components/Root';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { Inter } from '@next/font/google';
-// import { useState } from 'react';
-// import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import Sidebar from '@/components/Sidebar'
 import { useRouter } from 'next/router';
 import '@splidejs/react-splide/css';
-import { Splide, SplideTrack, SplideSlide } from '@splidejs/react-splide';
 import { useEffect, useState } from 'react';
 import Slider from '@/components/Slider';
+import { herokuUrl } from '@/utils/constants';
 
 const inter = Inter({subsets: ['latin'], weight: ['300', '400', '500', '600', '700']});
 
@@ -430,7 +428,7 @@ const StyledRoot = styled(Root)`
 `;
 
 export async function getStaticProps(ctx) {
-  const reaRes = await fetch(`https://hudson-river-admin.herokuapp.com/api/real-estate-acquisitions?filters[Slug][$eq]=${ctx.params.id}&populate=*`);
+  const reaRes = await fetch(`${herokuUrl}/api/real-estate-acquisitions?filters[Slug][$eq]=${ctx.params.id}&populate=*`);
   const rea = await reaRes.json();
   return {
     props: {
@@ -441,7 +439,7 @@ export async function getStaticProps(ctx) {
 
 export async function getStaticPaths() {
   let reaPaths = [];
-  const reaRes = await fetch('https://hudson-river-admin.herokuapp.com/api/real-estate-acquisitions');
+  const reaRes = await fetch(`${herokuUrl}/api/real-estate-acquisitions`);
   const rea = await reaRes.json();
   
   rea.data.forEach((item) => {

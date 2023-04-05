@@ -129,9 +129,11 @@ const StyledAbout = styled(Root)`
         justify-content: center;
         padding-bottom: 0;
         flex-grow: 1;
+        margin-top: 0;
       }
       @media ${props => props.theme.bp.xl} {
         font-size: 2.375rem;
+        line-height: 3.25rem;
       }
       strong {
         margin-bottom: 2rem;

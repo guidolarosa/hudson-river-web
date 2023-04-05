@@ -12,6 +12,7 @@ const theme = {
     gold100: 'hsla(28, 13%, 75%, 1)',
     gold500: 'hsla(31, 21%, 51%, 1)',
     gold900: 'hsla(31, 20%, 9%, 1)',
+    error: 'hsla(343, 79%, 50%, 1)'
   },
   bp: bp,
   boxSizes: {

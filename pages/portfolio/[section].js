@@ -1,19 +1,14 @@
 import Head from 'next/head'
 import Root from '@/components/Root';
 import styled from 'styled-components';
-import Image from 'next/image';
-import { Inter } from '@next/font/google';
 import { useState } from 'react';
-import Link from 'next/link';
-import ReactMarkdown from 'react-markdown';
 import Sidebar from '@/components/Sidebar';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { fadeUp } from '@/theme/animations';
 import { keyframes } from 'styled-components';
 import PortfolioList from '@/components/PortfolioList';
-
-const inter = Inter({subsets: ['latin'], weight: ['300', '400', '500', '600', '700']});
+import { herokuUrl } from '@/utils/constants';
 
 export default function Portfolio(props) {
   const [currentView, setCurrentView] = useState('real-estate-acquisitions');
@@ -283,10 +278,10 @@ const StyledRoot = styled(Root)`
 `;
 
 export async function getStaticProps(context) {
-  const investmentsRes = await fetch('https://hudson-river-admin.herokuapp.com/api/investments?populate=*');
+  const investmentsRes = await fetch(`${herokuUrl}/api/investments?populate=*`);
   const investments = await investmentsRes.json();
 
-  const reaRes = await fetch('https://hudson-river-admin.herokuapp.com/api/real-estate-acquisitions?populate=*');
+  const reaRes = await fetch(`${herokuUrl}/api/real-estate-acquisitions?populate=*`);
   const rea = await reaRes.json();
 
   return {

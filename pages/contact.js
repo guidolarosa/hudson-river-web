@@ -5,31 +5,60 @@ import Root from '@/components/Root';
 import { Inter } from '@next/font/google';
 import { useEffect, useState } from 'react';
 import { fadeUp } from '@/theme/animations';
+import { sanitizeString, validateEmail } from '@/utils/utils';
+import { herokuUrl } from '@/utils/constants';
 
 const inter = Inter({subsets: ['latin']});
 
 const Contact = (props) => {
 
+  const [allInputsFilled, setAllInputdsFilled] = useState(false);
+  const [triedSubmit, setTriedSubmit] = useState(false);
+  const [formSubmited, setFormSubmited] = useState(false);
+
   const [formData, setFormData] = useState({
-    Name: '',
-    Email: '',
-    Phone: '',
-    Message: ''
+    Name: {
+      value: '',
+      valid: false
+    },
+    Email: {
+      value: '',
+      valid: false
+    },
+    Phone: {
+      value: '',
+      valid: false
+    },
+    Message: {
+      value: '',
+      valid: false
+    }
   });
 
   useEffect(() => {
-    // console.log(formData);
-  })
-  
-  const onFormSubmit = (e) => {
-    e.preventDefault();
+    const {Name, Email, Phone, Message} = formData;
+    if (
+      Name.value.length > 0 &&
+      Email.value.length > 0 &&
+      Phone.value.length > 0 &&
+      Message.value.length > 0
+    ) {
+      setAllInputdsFilled(true)
+    } else {
+      setAllInputdsFilled(false)
+    }
+  }, [formData]);
 
-
-
-    fetch('https://hudson-river-admin.herokuapp.com/api/messages', {
+  const sendFormData = () => {
+    fetch(`${herokuUrl}/api/messages`, {
       method: 'POST',
       body: JSON.stringify({
-        data: formData
+        data: {
+          Name: sanitizeString(formData.Name.value),
+          Email: sanitizeString(formData.Email.value),
+          Phone: formData.Phone.value,
+          Message: sanitizeString(formData.Message.value),
+        }
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -37,9 +66,25 @@ const Contact = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        
+        setFormSubmited(true);
       });
-  };
+  }
+  
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    setTriedSubmit(true);
+
+    const {Name, Email, Phone, Message} = formData;
+
+    if (
+      Name.valid &&
+      Email.valid &&
+      Phone.valid &&
+      Message.valid
+    ) {
+      sendFormData();
+    };
+  }
 
   return (
     <>
@@ -57,7 +102,7 @@ const Contact = (props) => {
           </div>
           <div className="form-container">
             <h1>Stay in touch</h1>
-            <form onSubmit={onFormSubmit} className={inter.className}>
+            <form onSubmit={onFormSubmit} className={`${inter.className} ${formSubmited ? 'submited' : ''}`}>
               <div className="input-group">
                 <label for="name">Name <span>*</span></label>
                 <input 
@@ -67,13 +112,16 @@ const Contact = (props) => {
                   onChange={(e) => {
                     setFormData({
                       ...formData,
-                      Name: e.target.value
+                      Name: {
+                        value: e.target.value,
+                        valid: e.target.value.length > 0
+                      }
                     })
                   }}
                 />
               </div>
               <div className="input-row">
-                <div className="input-group">
+                <div className={`input-group ${triedSubmit && !formData.Email.valid ? 'invalid' : ''}`}>
                   <label for="email">Email Address <span>*</span></label>
                   <input 
                     type="text" 
@@ -82,22 +130,35 @@ const Contact = (props) => {
                     onChange={(e) => {
                       setFormData({
                         ...formData,
-                        Email: e.target.value
+                        Email: {
+                          value: e.target.value,
+                          valid: validateEmail(e.target.value) ? true : false
+                        }
                       })
                     }}
                   />
+                  <div className="error-icon">
+                    <Image
+                      fill
+                      src={'/contact/error.svg'}
+                      alt="Error"
+                    />
+                  </div>
+                  <div className="alert">Something is wrong</div>
                 </div>
                 <div className="input-group">
                   <label for="phone">Phone <span>*</span></label>
                   <input 
                     type="tel" 
-                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                     placeholder="Enter your phone" 
                     id="phone"
                     onChange={(e) => {
                       setFormData({
                         ...formData,
-                        Phone: e.target.value
+                        Phone: {
+                          value: e.target.value,
+                          valid: e.target.value.length > 0
+                        }
                       })
                     }}
                   />
@@ -112,13 +173,20 @@ const Contact = (props) => {
                   onChange={(e) => {
                     setFormData({
                       ...formData,
-                      Message: e.target.value
+                      Message: {
+                        value: e.target.value,
+                        valid: e.target.value.length > 0
+                      }
                     })
                   }}
                 />
               </div>
               <div className="input-group">
-                <button>Submit</button>
+                <button 
+                  className={`${allInputsFilled ? 'enabled' : ''}`}
+                >
+                  Submit
+                </button>
               </div>
             </form>
           </div>
@@ -212,6 +280,38 @@ const StyledContact = styled(Root)`
         display: flex;
         flex-direction: column;
         margin-bottom: 4rem;
+        position: relative;
+        .error-icon,
+        .alert {
+          opacity: 0;
+          pointer-events: none;
+          position: absolute;
+          transition: 0.25s ease-in-out;
+        }
+        .error-icon {
+          width: 2rem;
+          height: 2rem;
+          top: 3.5rem;
+          right: 0rem;
+        }
+        .alert {
+          bottom: -2.5rem;
+          font-size: 1.625rem;
+          letter-spacing: 0.03em;
+          color: ${props => props.theme.colors.error};
+          @media ${props => props.theme.bp.lg} {
+            bottom: 1rem;
+          }
+        }
+        &.invalid {
+          .error-icon,
+          .alert {
+            opacity: 1;
+          }
+          input {
+            border-color: ${props => props.theme.colors.error};
+          }
+        }
         &.message {
           margin-bottom: 5rem;
           label {
@@ -256,8 +356,20 @@ const StyledContact = styled(Root)`
           color: ${props => props.theme.colors.gold50};
           border-radius: 10rem;
           font-size: 2rem;
+          pointer-events: none;
+          transition: 0.25s ease-in-out all;
           @media ${props => props.theme.bp.md} {
             width: 27.75rem;
+          }
+          &.enabled {
+            border-color: ${props => props.theme.colors.gold100};
+            color: ${props => props.theme.colors.gold900};
+            pointer-events: auto;
+            cursor: pointer;
+          }
+          &:hover {
+            border-color: ${props => props.theme.colors.gold500};
+            color: ${props => props.theme.colors.gold500};
           }
         }
       }
