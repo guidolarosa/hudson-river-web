@@ -27,11 +27,6 @@ export default function REA(props) {
   } = props.rea.data[0].attributes;
 
   const router = useRouter();
-
-  useEffect(() => {
-    console.log(activeImage);
-    // console.log(new Date().getMilliseconds())
-  }, [activeImage])
   
   useEffect(() => {
     if (SliderImages.data && SliderImages.data.filter(image => image.id === MainImage.data.id).length == 0) {
