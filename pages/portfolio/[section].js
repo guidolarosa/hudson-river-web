@@ -116,6 +116,17 @@ const StyledRoot = styled(Root)`
     .portfolio-list {
       display: none;
       display: block;
+      margin-bottom: 5rem;
+      &.investments {
+        ul {
+          .portfolio-item-card {
+            h2 {
+              font-size: 5rem;
+              line-height: 6rem;
+            }
+          }
+        }
+      }
       .list-visibility-toggle {
         display: flex;
         border-bottom: 1px solid ${props => props.theme.colors.gold100};
@@ -195,7 +206,7 @@ const StyledRoot = styled(Root)`
               position: relative;
               height: 25rem;
               width: 100%;
-              @media ${props => props.theme.bp.md} {
+              @media ${props => props.theme.bp.lg} {
                 height: 35.25rem;
               }
               img {
@@ -245,9 +256,6 @@ const StyledRoot = styled(Root)`
           align-items: center;
           justify-content: center;
           background: ${props => props.theme.colors.gold25};
-          @media ${props => props.theme.bp.md} {
-            height: 35.25rem;
-          }
           .image {
             max-width: 25rem;
             max-height: 10.5rem;

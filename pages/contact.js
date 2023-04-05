@@ -24,6 +24,8 @@ const Contact = (props) => {
   const onFormSubmit = (e) => {
     e.preventDefault();
 
+
+
     fetch('https://hudson-river-admin.herokuapp.com/api/messages', {
       method: 'POST',
       body: JSON.stringify({
@@ -42,7 +44,7 @@ const Contact = (props) => {
   return (
     <>
       <Head>
-        <title>Hudson River | About</title>
+        <title>Hudson River | Contact</title>
         <meta name="description" content="Hudson River" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
@@ -101,7 +103,7 @@ const Contact = (props) => {
                   />
                 </div>
               </div>
-              <div className="input-group">
+              <div className="input-group message">
                 <label for="message">Message <span>*</span></label>
                 <textarea 
                   type="text" 
@@ -134,6 +136,12 @@ const StyledContact = styled(Root)`
       display: flex;
       gap: 4rem;
       margin-top: 6rem;
+    }
+    @media ${props => props.theme.bp.lg} {
+      max-width: calc(100vw - 44rem);
+    }
+    @media ${props => props.theme.bp.xl} {
+      max-width: calc(100vw - 65.75rem);
     }
     .map-container,
     .form-container {
@@ -204,6 +212,12 @@ const StyledContact = styled(Root)`
         display: flex;
         flex-direction: column;
         margin-bottom: 4rem;
+        &.message {
+          margin-bottom: 5rem;
+          label {
+            margin-bottom: 2rem;
+          }
+        }
         label {
           text-transform: uppercase;
           margin-bottom: 0.5rem;

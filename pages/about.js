@@ -50,9 +50,19 @@ const StyledAbout = styled(Root)`
       padding: 12rem 9rem;
       text-align: center;
     }
+    @media ${props => props.theme.bp.lg} {
+      display: flex;
+      align-items: center;
+      height: 29rem;
+      max-width: calc(100vw - 44rem);
+    }
+    @media ${props => props.theme.bp.xl} {
+      height: 38.5rem;
+      max-width: calc(100vw - 65.75rem);
+    }
     strong {
       color: ${props => props.theme.colors.gold500};
-      font-weight: 600;
+      font-weight: 400;
       font-size: 2.875rem;
       @media ${props => props.theme.bp.md} {
         font-size: 4rem;
@@ -75,6 +85,12 @@ const StyledAbout = styled(Root)`
       padding-top: 6rem;
       padding-bottom: 29rem;
     }
+    @media ${props => props.theme.bp.lg} {
+      max-width: calc(100vw - 44rem);
+    }
+    @media ${props => props.theme.bp.xl} {
+      max-width: calc(100vw - 65.75rem);
+    }
     .about-image-container {
       position: relative;
       width: 100%;
@@ -88,9 +104,10 @@ const StyledAbout = styled(Root)`
       @media ${props => props.theme.bp.md} {
         margin-top: 0;
         height: 41rem;
+        flex-grow: 1;
       }
       @media ${props => props.theme.bp.lg} {
-        max-width: 85rem;
+        max-width: 72rem;
         max-height: 32rem;
       }
       @media ${props => props.theme.bp.xl} {
@@ -111,6 +128,10 @@ const StyledAbout = styled(Root)`
         flex-direction: column;
         justify-content: center;
         padding-bottom: 0;
+        flex-grow: 1;
+      }
+      @media ${props => props.theme.bp.xl} {
+        font-size: 2.375rem;
       }
       strong {
         margin-bottom: 2rem;
