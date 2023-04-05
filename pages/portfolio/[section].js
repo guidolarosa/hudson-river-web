@@ -122,6 +122,30 @@ const StyledRoot = styled(Root)`
           }
         }
       }
+      &.rea {
+        ul {
+          li {
+            &:hover {
+              .body {
+                .city,
+                h2 {
+                  color: ${props => props.theme.colors.gold500};
+                }
+              }
+              .portfolio-item-card {
+                .header {
+                  .image {
+                    border: 1rem solid ${props => props.theme.colors.gold25};
+                    @media ${props => props.theme.bp.lg} {
+                      width: 80%;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
       .list-visibility-toggle {
         display: flex;
         border-bottom: 1px solid ${props => props.theme.colors.gold100};
@@ -176,22 +200,6 @@ const StyledRoot = styled(Root)`
         width: 100%;
         @media ${props => props.theme.bp.md} {
           width: calc(50% - 2rem);
-        }
-        &:hover {
-          .body {
-            .city,
-            h2 {
-              color: ${props => props.theme.colors.gold500};
-            }
-          }
-          .portfolio-item-card {
-            .header {
-              .image {
-                border: 1rem solid ${props => props.theme.colors.gold25};
-                width: 80%;
-              }
-            }
-          }
         }
         .portfolio-item-card {
           margin-bottom: 2rem;
