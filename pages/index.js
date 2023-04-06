@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Root from '@/components/Root';
 import styled, { keyframes } from 'styled-components';
 import Image from 'next/image';
-import { fadeUp } from '@/theme/animations';
+import { fadeUp, fadeIn } from '@/theme/animations';
 
 export default function Home() {
   return (
@@ -71,6 +71,8 @@ const StyledRoot = styled(Root)`
     position: relative;
     background: #ebebed;
     overflow: hidden;
+    opacity: 0;
+    animation: 0.5s ${fadeIn} ease-out 3.5s forwards;
     .hero-background {
       object-fit: cover;
       object-position: 45% 0;
@@ -103,7 +105,7 @@ const StyledRoot = styled(Root)`
       position: relative;
       z-index: 1;
       opacity: 0;
-      animation: 0.25s ${fadeUp} 2.25s ease-out forwards;
+      animation: 0.5s ${fadeUp} 4s ease-out forwards;
       @media ${props => props.theme.bp.md} {
         margin-top: 11rem;
       }
