@@ -211,13 +211,12 @@ const StyledRoot = styled(Root)`
           }
           .header {
             margin-bottom: 3rem;
-            opacity: 0;
-            animation: 0.25s ${fadeUp} ease-out 1.5s forwards;
             .image {
               position: relative;
               height: 25rem;
               width: 100%;
-              transition: 0.35s ease-in-out all;
+              opacity: 0;
+              animation: 0.5s ${fadeUp} ease-out 2s forwards;
               &:after {
                 border: 0rem solid ${props => props.theme.colors.gold25};
                 position: absolute;
@@ -253,7 +252,7 @@ const StyledRoot = styled(Root)`
               margin-bottom: 0.5rem;
               font-size: 1.625rem;
               opacity: 0;
-              animation: 0.25s ${fadeUp} ease-out 1.75s forwards;
+              animation: 0.5s ${fadeUp} ease-out 2.5s forwards;
               @media ${props => props.theme.bp.lg} {
                 font-size: 2rem;
               }
@@ -264,7 +263,7 @@ const StyledRoot = styled(Root)`
               font-weight: 600;
               line-height: 4.5rem;
               opacity: 0;
-              animation: 0.25s ${fadeUp} ease-out 2s forwards;
+              animation: 0.5s ${fadeUp} ease-out 3s forwards;
               @media ${props => props.theme.bp.lg} {
                 font-size: 5rem;
                 line-height: 6rem;
@@ -303,7 +302,6 @@ const StyledRoot = styled(Root)`
         .body {
           font-weight: 300;
           opacity: 0;
-          animation: 0.25s ${fadeUp} ease-out 2.25s forwards;
           @media ${props => props.theme.bp.lg} {
             min-height: 22rem;
           }
