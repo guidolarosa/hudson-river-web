@@ -29,7 +29,6 @@ export default class MyDocument extends Document {
                 <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet"/>
               </Head>
               <body>
-              {/* <script>0</script> */}
               <Main />
               <NextScript />
               </body>

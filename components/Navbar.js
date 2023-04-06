@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import navigation from "@/content/navigation";
 import Link from "next/link";
-import { fadeDown } from "@/theme/animations";
+import { fadeDown, fadeIn } from "@/theme/animations";
 
 const Navbar = (props) => {
 
@@ -82,13 +82,13 @@ const StyledNavbar = styled.div`
     display: inherit;
     justify-content: space-between;
     z-index: 3;
-    opacity: 0;
-    animation: 1s ${fadeDown} forwards ease-out;
-    animation-delay: ${props => props.isIndex ? '2.25s' : '1s'};
     .logo-container {
       width: 20rem;
       height: 4rem;
       position: relative;
+      opacity: 0;
+      animation: 1s ${fadeIn} forwards ease-out;
+      animation-delay: ${props => props.isIndex ? '2.25s' : '1s'};
       @media ${props => props.theme.bp.lg} {
         width: 26.5rem;
         height: 5rem;
@@ -100,6 +100,9 @@ const StyledNavbar = styled.div`
         display: flex;
         li {
           margin-left: 7rem;
+          opacity: 0;
+          animation: 1s ${fadeDown} forwards ease-out;
+          animation-delay: ${props => props.isIndex ? '2.75s' : '1.5s'};
           a {
             font-size: 2rem;
             text-transform: uppercase;
