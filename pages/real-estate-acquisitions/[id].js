@@ -16,6 +16,7 @@ const inter = Inter({subsets: ['latin'], weight: ['300', '400', '500', '600', '7
 export default function REA(props) {
 
   const [activeImage, setActiveImage] = useState(0);
+  const [activeModalImage, setActiveModalImage] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   let {
@@ -133,7 +134,7 @@ export default function REA(props) {
               <div className="main-image">
                 {SliderImages.data ? (
                   <Image
-                    src={SliderImages.data[activeImage].attributes.url}
+                    src={SliderImages.data[activeModalImage].attributes.url}
                     fill
                     alt={Name}
                   />
@@ -146,7 +147,7 @@ export default function REA(props) {
                 )}
               </div>
               <Slider
-                setActiveImage={setActiveImage}
+                setActiveImage={setActiveModalImage}
                 sliderImages={SliderImages.data}
                 type={'mobile'}
               />
@@ -277,6 +278,7 @@ const StyledRoot = styled(Root)`
       z-index: 1;
       top: 3.5rem;
       right: 3.5rem;
+      cursor: pointer;
       @media ${props => props.theme.bp.md} {
         right: 6.5rem;
       }
