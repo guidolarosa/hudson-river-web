@@ -304,6 +304,12 @@ const StyledRoot = styled(Root)`
           font-weight: 300;
           opacity: 0;
           animation: 0.25s ${fadeUp} ease-out 2.25s forwards;
+          @media ${props => props.theme.bp.lg} {
+            min-height: 22rem;
+          }
+          @media ${props => props.theme.bp.xl} {
+            min-height: 20rem;
+          }
           p {
             font-size: 2rem;
             margin-bottom: 1rem;
