@@ -8,6 +8,7 @@ const GlobalStyles = createGlobalStyle`
     background: ${props => props.theme.colors.offWhite};
     color: ${props => props.theme.colors.gold900};
     font-size: 8px;
+    overflow-x: hidden;
   }
   
   body {
