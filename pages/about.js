@@ -100,6 +100,11 @@ const StyledAbout = styled(Root)`
       animation: 0.5s ${fadeUp} 1.25s forwards;
       .about-image {
         object-fit: cover;
+        object-position: 0 30%;
+        @media ${props => props.theme.bp.lg} {
+          object-position: 0 30%;
+          /* object-fit: contain; */
+        }
       }
       @media ${props => props.theme.bp.md} {
         margin-top: 0;
