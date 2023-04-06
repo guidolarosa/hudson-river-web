@@ -35,6 +35,10 @@ export default function REA(props) {
     }
   }, [SliderImages, MainImage]);
 
+  useEffect(() => {
+    // console.log(activeImage);
+  }, [activeImage])
+
   return (
     <>
       <Head>
