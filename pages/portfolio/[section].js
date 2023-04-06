@@ -113,11 +113,45 @@ const StyledRoot = styled(Root)`
       display: block;
       margin-bottom: 5rem;
       &.investments {
-        ul {
-          .portfolio-item-card {
+        .portfolio-item-card {
+          .header {
+            width: 100%;
+            height: 25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: ${props => props.theme.colors.gold25};
+            .image {
+              max-width: 25rem;
+              max-height: 10.5rem;
+              img {
+                object-fit: contain;
+                object-position: center;
+              }
+            }
+          }
+          .body {
+            font-weight: 300;
+            opacity: 0;
+            animation: 1s ${fadeUp} ease-out 2.5s forwards;
             h2 {
               font-size: 5rem;
               line-height: 6rem;
+              opacity: 1;
+              animation: none;
+            }
+            @media ${props => props.theme.bp.lg} {
+              min-height: 22rem;
+            }
+            @media ${props => props.theme.bp.xl} {
+              min-height: 20rem;
+            }
+            p {
+              font-size: 2rem;
+              margin-bottom: 1rem;
+            }
+            a {
+              color:  ${props => props.theme.colors.gold500};
             }
           }
         }
@@ -252,7 +286,7 @@ const StyledRoot = styled(Root)`
               margin-bottom: 0.5rem;
               font-size: 1.625rem;
               opacity: 0;
-              animation: 1s ${fadeUp} ease-out 3s forwards;
+              animation: 1s ${fadeUp} ease-out 2.5s forwards;
               @media ${props => props.theme.bp.lg} {
                 font-size: 2rem;
               }
@@ -263,7 +297,7 @@ const StyledRoot = styled(Root)`
               font-weight: 600;
               line-height: 4.5rem;
               opacity: 0;
-              animation: 1s ${fadeUp} ease-out 4s forwards;
+              animation: 1s ${fadeUp} ease-out 3s forwards;
               @media ${props => props.theme.bp.lg} {
                 font-size: 5rem;
                 line-height: 6rem;
@@ -277,43 +311,6 @@ const StyledRoot = styled(Root)`
 
               }
             }
-          }
-        }
-      }
-    }
-    .investments {
-      .portfolio-item-card {
-        .header {
-          width: 100%;
-          height: 25rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: ${props => props.theme.colors.gold25};
-          .image {
-            max-width: 25rem;
-            max-height: 10.5rem;
-            img {
-              object-fit: contain;
-              object-position: center;
-            }
-          }
-        }
-        .body {
-          font-weight: 300;
-          opacity: 0;
-          @media ${props => props.theme.bp.lg} {
-            min-height: 22rem;
-          }
-          @media ${props => props.theme.bp.xl} {
-            min-height: 20rem;
-          }
-          p {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-          }
-          a {
-            color:  ${props => props.theme.colors.gold500};
           }
         }
       }
