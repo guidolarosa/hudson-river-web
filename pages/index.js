@@ -72,7 +72,7 @@ const StyledRoot = styled(Root)`
     background: #ebebed;
     overflow: hidden;
     opacity: 0;
-    animation: 0.5s ${fadeIn} ease-out 3.5s forwards;
+    animation: 1s ${fadeIn} ease-out 3.5s forwards;
     .hero-background {
       object-fit: cover;
       object-position: 45% 0;
@@ -105,7 +105,7 @@ const StyledRoot = styled(Root)`
       position: relative;
       z-index: 1;
       opacity: 0;
-      animation: 0.5s ${fadeUp} 4s ease-out forwards;
+      animation: 1s ${fadeUp} 4.5s ease-out forwards;
       @media ${props => props.theme.bp.md} {
         margin-top: 11rem;
       }
