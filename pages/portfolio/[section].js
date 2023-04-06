@@ -216,7 +216,7 @@ const StyledRoot = styled(Root)`
               height: 25rem;
               width: 100%;
               opacity: 0;
-              animation: 0.5s ${fadeUp} ease-out 2s forwards;
+              animation: 1s ${fadeUp} ease-out 2s forwards;
               &:after {
                 border: 0rem solid ${props => props.theme.colors.gold25};
                 position: absolute;
@@ -252,7 +252,7 @@ const StyledRoot = styled(Root)`
               margin-bottom: 0.5rem;
               font-size: 1.625rem;
               opacity: 0;
-              animation: 0.5s ${fadeUp} ease-out 2.5s forwards;
+              animation: 1s ${fadeUp} ease-out 3s forwards;
               @media ${props => props.theme.bp.lg} {
                 font-size: 2rem;
               }
@@ -263,7 +263,7 @@ const StyledRoot = styled(Root)`
               font-weight: 600;
               line-height: 4.5rem;
               opacity: 0;
-              animation: 0.5s ${fadeUp} ease-out 3s forwards;
+              animation: 1s ${fadeUp} ease-out 4s forwards;
               @media ${props => props.theme.bp.lg} {
                 font-size: 5rem;
                 line-height: 6rem;
