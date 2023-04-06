@@ -202,6 +202,7 @@ const StyledRoot = styled(Root)`
           margin-bottom: 2rem;
           @media ${props => props.theme.bp.md} {
             height: 53rem;
+            margin-bottom: 3rem;
           }
           .screen-size {
             width: 3rem;
@@ -223,8 +224,10 @@ const StyledRoot = styled(Root)`
           font-size: 1.625rem;
           margin-bottom: 0.5rem;
           font-weight: 300;
+          display: inline-block;
           @media ${props => props.theme.bp.md} {
             font-size: 2rem;
+            margin-bottom: 1rem;
           }
         }
         h1 {
@@ -358,7 +361,8 @@ const StyledRoot = styled(Root)`
           left: 1.5rem;
           top: 50rem;
           transform: rotate(90deg);
-          .splide__arrow--prev {
+          .splide__arrow--prev,
+          .splide__arrow--next {
             display: none;
           }
         }
@@ -373,6 +377,7 @@ const StyledRoot = styled(Root)`
             display: flex;
             flex-direction: column;
             align-items: center;
+            cursor: pointer;
             .slide-image {
               position: relative;
               width: 9rem;

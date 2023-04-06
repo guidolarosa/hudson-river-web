@@ -32,12 +32,20 @@ const Slider = (props) => {
         >
           <SplideTrack>
             {props.sliderImages.map((image, index) => (
-              <SplideSlide key={index}>
+              <SplideSlide 
+                key={index}
+                onClick={() => {
+                  props.setActiveImage(index)
+                }}
+              >
                 <div className="slide-image">
                   <Image
                     fill
                     alt={image.attributes.name}
                     src={image.attributes.url}
+                    style={{
+                      objectFit: 'cover'
+                    }}
                   />
                 </div>
                 <div className="index">
@@ -46,22 +54,24 @@ const Slider = (props) => {
               </SplideSlide>
             ))}
           </SplideTrack>
-          <div className="splide__arrows">
-            <button className="splide__arrow splide__arrow--prev">
-              <Image
-                fill
-                src="/general/caret-left.svg"
-                alt={'Previous'}
-              />
-            </button>
-            <button className="splide__arrow splide__arrow--next">
-              <Image
-                fill
-                src="/general/caret-right.svg"
-                alt={'Next'}
-              />
-            </button>
-          </div>
+          {props.sliderImages.length > 3 && (
+            <div className="splide__arrows">
+              <button className="splide__arrow splide__arrow--prev">
+                <Image
+                  fill
+                  src="/general/caret-left.svg"
+                  alt={'Previous'}
+                />
+              </button>
+              <button className="splide__arrow splide__arrow--next">
+                <Image
+                  fill
+                  src="/general/caret-right.svg"
+                  alt={'Next'}
+                />
+              </button>
+            </div>
+          )}
         </Splide>
       </div>
     )
