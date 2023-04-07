@@ -326,7 +326,7 @@ const StyledRoot = styled(Root)`
       }
     }
     .underlay {
-      background: hsla(40, 100%, 99%, 0.9);
+      background: hsla(40, 100%, 99%, 0.95);
       position: absolute;
       top: 0;
       left: 0;

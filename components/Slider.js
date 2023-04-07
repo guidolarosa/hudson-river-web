@@ -57,13 +57,19 @@ const Slider = (props) => {
               </SplideSlide>
             ))}
           </SplideTrack>
-          {/* {props.sliderImages.length > 3 && ( */}
             <div className="splide__arrows">
               <button className="splide__arrow splide__arrow--prev">
                 <Image
                   fill
                   src="/general/caret-left.svg"
                   alt={'Previous'}
+                  className="regular"
+                />
+                <Image
+                  fill
+                  src="/general/caret-left-gold.svg"
+                  alt={'Previous'}
+                  className={'hovered'}
                 />
               </button>
               <button className="splide__arrow splide__arrow--next">
@@ -71,10 +77,16 @@ const Slider = (props) => {
                   fill
                   src="/general/caret-right.svg"
                   alt={'Next'}
+                  className="regular"
+                />
+                <Image
+                  className={'hovered'}
+                  fill
+                  src="/general/caret-right-gold.svg"
+                  alt={'Next'}
                 />
               </button>
             </div>
-          {/* )} */}
         </Splide>
       </StyledSlider>
     )
@@ -82,7 +94,6 @@ const Slider = (props) => {
 }
 
 const StyledSlider = styled.div`
-  /* display: flex; */
   justify-content: center;
   position: relative;
   width: 100%;
@@ -112,12 +123,6 @@ const StyledSlider = styled.div`
         left: 1.5rem;
         top: 50rem;
         transform: rotate(90deg);
-        .splide__arrow--prev {
-          transform: rotate(180deg);
-        }
-        .splide__arrow--prev {
-          display: none;
-        }
       }
     }
   }
@@ -162,17 +167,36 @@ const StyledSlider = styled.div`
         height: 3rem;
         top: 0;
         outline: none;
+        &:hover {
+          .hovered {
+            opacity: 1;
+          }
+          .regular {
+            opacity: 0;
+          }
+        }
+        .hovered {
+          opacity: 0;
+          transform: translateX(0.5px);
+        }
+        .hovered,
+        .regular {
+          transition: 0.25s ease-in-out opacity;
+        }
         img {
           object-fit: cover;
           object-position: center;
         }
+      }
+      .splide__arrow:disabled {
+        opacity: 0.1;
+        transition: 0.25s ease-in-out opacity;
       }
       .splide__arrow--prev {
         left: 0;
       }
       .splide__arrow--next {
         right: 0;
-        /* transform: rotate(180deg); */
       }
     }
   }

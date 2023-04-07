@@ -10,7 +10,6 @@ const Root = (props) => {
       <Navbar isIndex={props.isIndex} />
       <StyledRoot {...props}>
         {props.children}
-        {/* <Footer /> */}
       </StyledRoot>
     </div>
   );

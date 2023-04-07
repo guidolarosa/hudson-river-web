@@ -50,7 +50,6 @@ const fadeOut = keyframes`
 `;
 
 const StyledRoot = styled(Root)`
-  /* height: calc(100vh - 10rem); */
   .init-animation {
     background: ${props => props.theme.colors.offWhite};
     width: 100%;

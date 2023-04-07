@@ -276,7 +276,6 @@ const StyledContact = styled(Root)`
     .location {
       .map-container {
         height: 30rem;
-        /* overflow: hidden; */
         .marker {
           background-image: url('/general/marker.svg');
           background-size: cover;

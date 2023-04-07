@@ -103,7 +103,6 @@ const StyledAbout = styled(Root)`
         object-position: 0 30%;
         @media ${props => props.theme.bp.lg} {
           object-position: 0 30%;
-          /* object-fit: contain; */
         }
       }
       @media ${props => props.theme.bp.md} {

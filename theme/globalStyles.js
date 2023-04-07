@@ -51,7 +51,6 @@ const GlobalStyles = createGlobalStyle`
   .page-transition-enter-active {
     opacity: 1;
     transition: opacity 300ms;
-    /* transform: translateX(0rem) */
   }
   .page-transition-exit {
     opacity: 1;
