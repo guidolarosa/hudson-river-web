@@ -1,15 +1,18 @@
 const navigation = [
   {
     label: 'Portfolio',
-    url: '/portfolio/real-estate-acquisitions'
+    url: '/portfolio/real-estate-acquisitions',
+    id: 'portfolio'
   },
   {
     label: 'About',
-    url: '/about'
+    url: '/about',
+    id: 'about'
   },
   {
     label: 'Contact',
-    url: '/contact'
+    url: '/contact',
+    id: 'contact'
   },
 ]
 

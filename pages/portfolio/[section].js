@@ -41,14 +41,18 @@ export default function Portfolio(props) {
           <ul>
             <li 
               role="button" 
-              onClick={() => { router.push('/portfolio/real-estate-acquisitions') }}
+              onClick={() => { 
+                router.push('/portfolio/real-estate-acquisitions') 
+              }}
               className={`${currentView === 'real-estate-acquisitions' ? 'current' : ''}`}
             >
               Real Estate Acquisitions
             </li>
             <li 
               role="button" 
-              onClick={() => { router.push('investments') }}
+              onClick={() => { 
+                router.push('investments') 
+              }}
               className={`${currentView === 'investments' ? 'current' : ''}`}
             >
               Investments

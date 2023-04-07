@@ -12,6 +12,8 @@ const Navbar = (props) => {
 
   const router = useRouter();
 
+  const mainRoute = router.asPath.split('/')[1];
+
   return (
     <StyledNavbar {...props} isIndex={props.isIndex}>
       <div className="inner-navbar-container">
@@ -28,7 +30,7 @@ const Navbar = (props) => {
           <ul>
             {navigation.map((navigationItem, index) => (
               <li key={navigationItem.label}>
-                <Link href={`${navigationItem.url}`} className={`${router.asPath === navigationItem.url ? 'current' : ''}`}>
+                <Link href={`${navigationItem.url}`} className={`${ mainRoute === navigationItem.id ? 'current' : ''}`}>
                   {navigationItem.label}
                 </Link>
               </li>

@@ -64,7 +64,7 @@ const PortfolioList = (props) => {
           <li key={index}>
             {props.type === 'rea' ? (
               <Link 
-                href={`/real-estate-acquisitions/${content.attributes.Slug}`}
+                href={`/portfolio/real-estate-acquisitions/${content.attributes.Slug}`}
               >
                 <ItemCard content={content} type={props.type}/>
               </Link>
