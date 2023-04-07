@@ -5,18 +5,22 @@ import styled from "styled-components";
 const mobileOptions = {
   perPage: 3,
   perMove: 1,
-  pagination: false
+  pagination: false,
+  // arrows: false
 }
 
 const desktopOptions = {
+  // type: 'loop',
   direction: 'ttb',
   height: '43rem',
   perPage: 3,
   perMove: 1,
-  pagination: false
+  pagination: false,
+  // arrows: false
 }
 
 const Slider = (props) => {
+  // console.log(props.sliderImages.length)
   return (
     props.sliderImages && (
       <StyledSlider className={`slider ${props.type === 'mobile' ? 'slider-mobile' : 'slider-desktop'}`}>
@@ -53,7 +57,7 @@ const Slider = (props) => {
               </SplideSlide>
             ))}
           </SplideTrack>
-          {props.sliderImages.length >= 3 && (
+          {/* {props.sliderImages.length > 3 && ( */}
             <div className="splide__arrows">
               <button className="splide__arrow splide__arrow--prev">
                 <Image
@@ -70,7 +74,7 @@ const Slider = (props) => {
                 />
               </button>
             </div>
-          )}
+          {/* )} */}
         </Splide>
       </StyledSlider>
     )
@@ -108,8 +112,10 @@ const StyledSlider = styled.div`
         left: 1.5rem;
         top: 50rem;
         transform: rotate(90deg);
-        .splide__arrow--prev,
-        .splide__arrow--next {
+        .splide__arrow--prev {
+          transform: rotate(180deg);
+        }
+        .splide__arrow--prev {
           display: none;
         }
       }
