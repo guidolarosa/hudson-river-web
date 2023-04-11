@@ -34,13 +34,13 @@ const GlobalStyles = createGlobalStyle`
   }
 
   h1 {
-    font-size: 4.125rem;
+    font-size: 3.5rem;
     color: ${props => props.theme.colors.gold500};
     font-weight: 500;
     @media ${props => props.theme.bp.md} {
-      font-size: 6rem;
+      font-size: 5rem;
     }
-    @media ${props => props.theme.bp.md} {
+    @media ${props => props.theme.bp.xl} {
       font-size: 6rem;
     }
   }

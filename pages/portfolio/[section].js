@@ -5,8 +5,6 @@ import { useState } from 'react';
 import Sidebar from '@/components/Sidebar';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { fadeUp } from '@/theme/animations';
-import { keyframes } from 'styled-components';
 import PortfolioList from '@/components/PortfolioList';
 import { herokuUrl } from '@/utils/constants';
 
@@ -31,10 +29,22 @@ export default function Portfolio(props) {
   return (
     <>
       <Head>
-        <title>Hudson River</title>
-        <meta name="description" content="Hudson River" />
+      <title>Hudson River | Portfolio</title>
+        <meta name="title" content="Hudson River | Portfolio"/>
+        <meta name="description" content="Hudson River Companies is a real estate acquisition and investment firm focused on risk adjusted opportunistic strategy."/>
+        <meta name="keywords" content="real estate, investments, real estate acquisitions, new york, atlanta, georgia, USA, saral gupta"/>
+        <meta name="robots" content="index, follow"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="language" content="English"/>
+        <meta name="author" content="Guido La Rosa, Entrecasas Studio"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
+        <meta property={'og:title'} content='Hudson River | Portfolio'/>
+        <meta property={'og:image'} content='https://i.ibb.co/Snst5hs/thumbnail.png'/>
+        <meta property={'og:description'} content='Hudson River Companies is a real estate acquisition and investment firm focused on risk adjusted opportunistic strategy.'/>
+        <meta property={'og:url'} content='https://hudsonriverco.com'/>
+        <meta property='og:image:width' content='1200' />
+        <meta property='og:image:height' content='627' />
       </Head>
       <StyledRoot>
         <Sidebar>
@@ -82,11 +92,6 @@ export default function Portfolio(props) {
   )
 };
 
-const borderCardAnimation = keyframes`
-  0% {border-color: transparent};
-  100% {border-color: hsla(33, 16%, 89%, 1)};
-`;
-
 const StyledRoot = styled(Root)`
   ${props => props.theme.boxSizes.default};
   display: flex;
@@ -112,213 +117,6 @@ const StyledRoot = styled(Root)`
   }
   .list-content {
     grid-area: lists;
-    .portfolio-list {
-      display: none;
-      display: block;
-      margin-bottom: 5rem;
-      &.investments {
-        .portfolio-item-card {
-          .header {
-            width: 100%;
-            height: 25rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: ${props => props.theme.colors.gold25};
-            .image {
-              max-width: 25rem;
-              max-height: 10.5rem;
-              img {
-                object-fit: contain;
-                object-position: center;
-              }
-            }
-          }
-          .body {
-            font-weight: 300;
-            opacity: 0;
-            animation: 1s ${fadeUp} ease-out 2.5s forwards;
-            h2 {
-              font-size: 5rem;
-              line-height: 6rem;
-              opacity: 1;
-              animation: none;
-            }
-            @media ${props => props.theme.bp.lg} {
-              min-height: 22rem;
-            }
-            @media ${props => props.theme.bp.xl} {
-              min-height: 20rem;
-            }
-            p {
-              font-size: 2rem;
-              margin-bottom: 1rem;
-            }
-            a {
-              color:  ${props => props.theme.colors.gold500};
-            }
-          }
-        }
-      }
-      &.rea {
-        ul {
-          li {
-            &:hover {
-              .body {
-                .city,
-                h2 {
-                  color: ${props => props.theme.colors.gold500};
-                }
-              }
-              .portfolio-item-card {
-                .header {
-                  .image {
-                    &:after {
-                      opacity: 1;
-                      border: 1rem solid ${props => props.theme.colors.gold25};
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-      .list-visibility-toggle {
-        display: flex;
-        border-bottom: 1px solid ${props => props.theme.colors.gold100};
-        padding: 2rem 0;
-        margin-bottom: 2rem;
-        align-items: center;
-        justify-content: space-between;
-        @media ${props => props.theme.bp.lg} {
-          display: none;
-        }
-        h1 {
-          cursor: pointer;
-          font-size: 4.125rem;
-        }
-        .chevron {
-          position: relative;
-          width: 3rem;
-          height: 3rem;
-          transition: 0.25s ease-in-out all;
-        }
-      }
-      @media ${props => props.theme.bp.lg} {
-        display: none;
-      }
-      &.show {
-        display: block;
-      }
-      &.toggle-open {
-        .list-visibility-toggle {
-          .chevron {
-            transform: rotate(180deg);
-          }
-        }
-        ul {
-          max-height: 300rem;
-        }
-      }
-    }
-    ul {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0rem 4rem;
-      width: 100%;
-      overflow-y: hidden;
-      max-height: 0;
-      transition: 0.5s ease-in-out all;
-      @media ${props => props.theme.bp.lg} {
-        overflow-y: visible;
-        max-height: unset;
-      }
-      li {
-        width: 100%;
-        @media ${props => props.theme.bp.md} {
-          width: calc(50% - 2rem);
-        }
-        .portfolio-item-card {
-          margin-bottom: 2rem;
-          padding-bottom: 3rem;
-          border-bottom: 1px solid transparent;
-          animation: 0.25s ${borderCardAnimation} ease-out 2.25s forwards;
-          @media ${props => props.theme.bp.lg} {
-            margin-bottom: 6rem;
-          }
-          .header {
-            margin-bottom: 3rem;
-            .image {
-              position: relative;
-              height: 25rem;
-              width: 100%;
-              opacity: 0;
-              animation: 1s ${fadeUp} ease-out 2s forwards;
-              &:after {
-                border: 0rem solid ${props => props.theme.colors.gold25};
-                position: absolute;
-                top: 0;
-                left: 0;
-                content: '';
-                width: 100%;
-                height: 100%;
-                z-index: 2;
-                transition: 0.25s ease-in-out all;
-                box-sizing: border-box;
-              }
-              @media ${props => props.theme.bp.lg} {
-                height: 35.25rem;
-              }
-              img {
-                object-fit: cover;
-                object-position: center;
-              }
-            }
-          }
-          .body {
-            @media ${props => props.theme.bp.md} {
-              overflow: hidden;
-            }
-            h2,
-            .city {
-              transition: 0.25s ease-in-out color;
-            }
-            .city {
-              text-transform: uppercase;
-              font-weight: 300;
-              margin-bottom: 0.5rem;
-              font-size: 1.625rem;
-              opacity: 0;
-              animation: 1s ${fadeUp} ease-out 2.5s forwards;
-              @media ${props => props.theme.bp.lg} {
-                font-size: 2rem;
-              }
-            }
-            h2 {
-              margin-bottom: 1rem;
-              font-size: 4rem;
-              font-weight: 600;
-              line-height: 4.5rem;
-              opacity: 0;
-              animation: 1s ${fadeUp} ease-out 3s forwards;
-              @media ${props => props.theme.bp.lg} {
-                font-size: 5rem;
-                line-height: 6rem;
-              }
-              @media ${props => props.theme.bp.md} {
-                text-overflow: ellipsis;
-                width: 100%;
-                overflow: hidden;
-                line-clamp: 1;
-                white-space: nowrap;
-
-              }
-            }
-          }
-        }
-      }
-    }
   }
 `;
 

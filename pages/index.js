@@ -12,6 +12,7 @@ export default function Home() {
         <meta name="description" content="Hudson River" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
+        
       </Head>
       <StyledRoot isIndex={true}>
         <div className="init-animation">
