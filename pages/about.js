@@ -24,7 +24,7 @@ const About = (props) => {
         <meta property={'og:title'} content='Hudson River | About'/>
         <meta property={'og:image'} content='https://i.ibb.co/Snst5hs/thumbnail.png'/>
         <meta property={'og:description'} content='Hudson River Companies is a real estate acquisition and investment firm focused on risk adjusted opportunistic strategy.'/>
-        <meta property={'og:url'} content='https://hudsonriverco.com'/>
+        <meta property={'og:url'} content='https://www.hudsonriverco.com'/>
         <meta property='og:image:width' content='1200' />
         <meta property='og:image:height' content='627' />
       </Head>
