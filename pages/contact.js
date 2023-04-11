@@ -142,7 +142,7 @@ const Contact = (props) => {
     <>
       <Head>
         <title>Hudson River | Contact</title>
-        <meta name="title" content="Hudson River"/>
+        <meta name="title" content="Hudson River | Contact"/>
         <meta name="description" content="Hudson River Companies is a real estate acquisition and investment firm focused on risk adjusted opportunistic strategy."/>
         <meta name="keywords" content="real estate, investments, real estate acquisitions, new york, atlanta, georgia, USA, saral gupta"/>
         <meta name="robots" content="index, follow"/>
@@ -151,7 +151,7 @@ const Contact = (props) => {
         <meta name="author" content="Guido La Rosa, Entrecasas Studio"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
-        <meta property={'og:title'} content='Hudson River'/>
+        <meta property={'og:title'} content='Hudson River | Contact'/>
         <meta property={'og:image'} content='https://i.ibb.co/Snst5hs/thumbnail.png'/>
         <meta property={'og:description'} content='Hudson River Companies is a real estate acquisition and investment firm focused on risk adjusted opportunistic strategy.'/>
         <meta property={'og:url'} content='https://hudsonriverco.com'/>

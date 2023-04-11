@@ -111,10 +111,14 @@ const StyledPortfolioList = styled.div`
         opacity: 0;
         animation: 1s ${fadeUp} ease-out 2.5s forwards;
         h2 {
-          font-size: 5rem;
-          line-height: 6rem;
+          font-size: 3.5rem;
+          line-height: 4.5rem;
           opacity: 1;
           animation: none;
+          @media ${props => props.theme.bp.lg} {
+            font-size: 4.125rem;
+            line-height: 6rem;
+          }
         }
         @media ${props => props.theme.bp.lg} {
           min-height: 22rem;

@@ -9,10 +9,21 @@ export default function Home() {
     <>
       <Head>
         <title>Hudson River</title>
-        <meta name="description" content="Hudson River" />
+        <meta name="title" content="Hudson River"/>
+        <meta name="description" content="Hudson River Companies is a real estate acquisition and investment firm focused on risk adjusted opportunistic strategy."/>
+        <meta name="keywords" content="real estate, investments, real estate acquisitions, new york, atlanta, georgia, USA, saral gupta"/>
+        <meta name="robots" content="index, follow"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="language" content="English"/>
+        <meta name="author" content="Guido La Rosa, Entrecasas Studio"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
-        
+        <meta property={'og:title'} content='Hudson River'/>
+        <meta property={'og:image'} content='https://i.ibb.co/Snst5hs/thumbnail.png'/>
+        <meta property={'og:description'} content='Hudson River Companies is a real estate acquisition and investment firm focused on risk adjusted opportunistic strategy.'/>
+        <meta property={'og:url'} content='https://hudsonriverco.com'/>
+        <meta property='og:image:width' content='1200' />
+        <meta property='og:image:height' content='627' />
       </Head>
       <StyledRoot isIndex={true}>
         <div className="init-animation">
