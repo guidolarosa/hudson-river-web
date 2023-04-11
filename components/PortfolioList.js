@@ -172,7 +172,7 @@ const StyledPortfolioList = styled.div`
     }
     h1 {
       cursor: pointer;
-      font-size: 4.125rem;
+      font-size: 3.5rem;
     }
     .chevron {
       position: relative;
