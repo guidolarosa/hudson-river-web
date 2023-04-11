@@ -40,9 +40,6 @@ const GlobalStyles = createGlobalStyle`
     @media ${props => props.theme.bp.md} {
       font-size: 5rem;
     }
-    @media ${props => props.theme.bp.xl} {
-      font-size: 6rem;
-    }
   }
     
   .page-transition-enter {
