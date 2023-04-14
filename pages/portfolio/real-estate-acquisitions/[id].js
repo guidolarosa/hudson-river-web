@@ -16,7 +16,6 @@ const inter = Inter({subsets: ['latin'], weight: ['300', '400', '500', '600', '7
 export default function REA(props) {
 
   const [activeImage, setActiveImage] = useState(0);
-  const [activeModalImage, setActiveModalImage] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   let {
