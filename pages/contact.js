@@ -123,6 +123,7 @@ const StyledContact = styled(Root)`
     .location {
       .map-container {
         height: 62rem;
+        max-height: calc(100vh - 40rem);
         @media ${props => props.theme.bp.xl} {
           height: 60rem;
         }
@@ -157,19 +158,22 @@ const StyledContact = styled(Root)`
       }
       address, a {
         font-style: normal;
-        margin-bottom: 1.8rem;
-        display: block;
+        @media ${props => props.theme.bp.md} {
+          display: block;
+          margin-bottom: 1.8rem;
+        }
         strong {
           ${props => props.theme.boxSizes.default};
           display: block;
-          margin-top: 3rem;
           color: ${props => props.theme.colors.gold500};
           opacity: 0;
           font-weight: 400;
           animation: 0.5s ${fadeUp} 1.5s forwards;
           width: unset;
           font-size: 2rem;
+          margin-top: 1.8rem;
           @media ${props => props.theme.bp.md} {
+            margin-top: 3rem;
             font-size: 2.375rem;
             margin: unset;
           }
@@ -177,7 +181,7 @@ const StyledContact = styled(Root)`
       }
       
       h1 {
-        margin-top: 7rem;
+        margin-top: 3rem;
         margin-bottom: 3rem;
         padding-bottom: 2rem;
         border-bottom: 1px solid ${props => props.theme.colors.gold100};
