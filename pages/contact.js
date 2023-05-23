@@ -151,8 +151,10 @@ const StyledContact = styled(Root)`
       ${props => props.theme.boxSizes.default};
       opacity: 0;
       animation: 0.5s ${fadeUp} 1.75s forwards;
-      margin: unset;
-      width: 100% !important;
+      @media ${props => props.theme.bp.md} {
+        margin: unset;
+        width: unset;
+      }
       address, a {
         font-style: normal;
         margin-bottom: 1.8rem;
