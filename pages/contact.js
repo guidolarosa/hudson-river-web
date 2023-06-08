@@ -210,6 +210,10 @@ const StyledContact = styled(Root)`
       }
     }
     .location {
+      address {
+        display: none;
+        padding-left: 0;
+      }
       .map-container {
         height: 62rem;
         max-height: calc(100vh - 40rem);
@@ -241,20 +245,21 @@ const StyledContact = styled(Root)`
           height: 100%;
         }
       }
-      address {
-        font-style: normal;
-        font-weight: 400;
-        strong {
-          ${props => props.theme.boxSizes.default};
-          display: block;
-          font-size: 2.375rem;
-          margin-top: 3rem;
-          color: ${props => props.theme.colors.gold500};
-          opacity: 0;
-          animation: 0.5s ${fadeUp} 1.5s forwards;
-          @media ${props => props.theme.bp.md} {
-            width: unset;
-          }
+    }
+    address {
+      font-style: normal;
+      font-weight: 400;
+      strong {
+        ${props => props.theme.boxSizes.default};
+        display: block;
+        font-size: 2.375rem;
+        margin-top: 3rem;
+        color: ${props => props.theme.colors.gold500};
+        opacity: 0;
+        animation: 0.5s ${fadeUp} 1.5s forwards;
+        width: unset;
+        @media ${props => props.theme.bp.md} {
+          width: unset !important;
         }
       }
     }
@@ -288,6 +293,7 @@ const StyledContact = styled(Root)`
         font-size: 4.125rem;
         @media ${props => props.theme.bp.md} {
           margin-top: 0;
+          margin-bottom: 2rem;
         }
       }
       .input-row {
