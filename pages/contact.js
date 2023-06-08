@@ -170,93 +170,17 @@ const Contact = (props) => {
           </div>
           <div className="form-container">
             <h1>Stay in touch</h1>
-            <form onSubmit={onFormSubmit} className={`${inter.className} ${formSubmited ? 'submited' : ''}`}>
-              <div className="input-group">
-                <label for="name">Name <span>*</span></label>
-                <input 
-                  type="text" 
-                  placeholder="Enter your name" 
-                  id="name"
-                  onChange={(e) => {
-                    setFormData({
-                      ...formData,
-                      Name: {
-                        value: e.target.value,
-                        valid: e.target.value.length > 0
-                      }
-                    })
-                  }}
-                />
-              </div>
-              <div className="input-row">
-                <div className={`input-group ${triedSubmit && !formData.Email.valid ? 'invalid' : ''}`}>
-                  <label for="email">Email Address <span>*</span></label>
-                  <input 
-                    type="text" 
-                    placeholder="Enter your email" 
-                    id="email"
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-                        Email: {
-                          value: e.target.value,
-                          valid: validateEmail(e.target.value) ? true : false
-                        }
-                      })
-                    }}
-                  />
-                  <div className="error-icon">
-                    <Image
-                      fill
-                      src={'/contact/error.svg'}
-                      alt="Error"
-                    />
-                  </div>
-                  <div className="alert">Something is wrong</div>
-                </div>
-                <div className="input-group">
-                  <label for="phone">Phone</label>
-                  <input 
-                    type="tel" 
-                    placeholder="Enter your phone" 
-                    id="phone"
-                    onChange={(e) => {
-                      setFormData({
-                        ...formData,
-                        Phone: {
-                          value: e.target.value,
-                          valid: e.target.value.length > 0
-                        }
-                      })
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="input-group message">
-                <label for="message">Message <span>*</span></label>
-                <textarea 
-                  type="text" 
-                  placeholder="Enter your message" 
-                  id="message"
-                  onChange={(e) => {
-                    setFormData({
-                      ...formData,
-                      Message: {
-                        value: e.target.value,
-                        valid: e.target.value.length > 0
-                      }
-                    })
-                  }}
-                />
-              </div>
-              <div className="input-group submit">
-                <button 
-                  className={`${allInputsFilled ? 'enabled' : ''}`}
-                >
-                  {formSubmited ? 'Thanks!' : 'Submit'}
-                </button>
-              </div>
-            </form>
+            {/* <Link href={'tel:2129252539'}>
+              <strong>
+                Phone: 212 925 2539
+              </strong>
+            </Link> */}
+            <address>
+              <strong>
+                Address: 6 St. Johns Ln, New York, NY
+              </strong>
+            </address>
+            {/* <ContactForm /> */}
           </div>
         </div>
 
@@ -287,7 +211,12 @@ const StyledContact = styled(Root)`
     }
     .location {
       .map-container {
-        height: 30rem;
+        height: 62rem;
+        max-height: calc(100vh - 40rem);
+        pointer-events: none;
+        @media ${props => props.theme.bp.xl} {
+          height: 60rem;
+        }
         .marker {
           background-image: url('/general/marker.svg');
           background-size: cover;
@@ -295,6 +224,7 @@ const StyledContact = styled(Root)`
           height: 3rem;
           border-radius: 50%;
           cursor: pointer;
+          pointer-events: none;
         }
         .mapboxgl-control-container {
           display: none;
@@ -367,16 +297,12 @@ const StyledContact = styled(Root)`
         .input-group {
           &:first-of-type {
             margin-bottom: 0.5rem;
-          }
-        }
-        @media ${props => props.theme.bp.lg} {
           flex-direction: row;
           .input-group {
             flex-grow: 1;
           }
         }
       }
-      .input-group {
         display: flex;
         flex-direction: column;
         margin-bottom: 4rem;
