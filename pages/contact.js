@@ -86,17 +86,11 @@ const Contact = (props) => {
           </div>
           <div className="form-container">
             <h1>Stay in touch</h1>
-            <Link href={'tel:2129252539'}>
-              <strong>
-                Phone: 212 925 2539
-              </strong>
-            </Link>
             <address>
               <strong>
                 Address: 6 St. Johns Ln, New York, NY
               </strong>
             </address>
-            {/* <ContactForm /> */}
           </div>
         </div>
 
@@ -121,9 +115,14 @@ const StyledContact = styled(Root)`
       max-width: calc(100vw - 65.75rem);
     }
     .location {
+      address {
+        display: none;
+        padding-left: 0;
+      }
       .map-container {
         height: 62rem;
         max-height: calc(100vh - 40rem);
+        pointer-events: none;
         @media ${props => props.theme.bp.xl} {
           height: 60rem;
         }
@@ -134,6 +133,7 @@ const StyledContact = styled(Root)`
           height: 3rem;
           border-radius: 50%;
           cursor: pointer;
+          pointer-events: none;
         }
         .mapboxgl-control-container {
           display: none;
@@ -145,6 +145,23 @@ const StyledContact = styled(Root)`
           animation: 0.5s ${fadeUp} 1.5s forwards;
           width: 100%;
           height: 100%;
+        }
+      }
+    }
+    address {
+      font-style: normal;
+      font-weight: 400;
+      strong {
+        ${props => props.theme.boxSizes.default};
+        display: block;
+        font-size: 2.375rem;
+        margin-top: 3rem;
+        color: ${props => props.theme.colors.gold500};
+        opacity: 0;
+        animation: 0.5s ${fadeUp} 1.5s forwards;
+        width: unset;
+        @media ${props => props.theme.bp.md} {
+          width: unset !important;
         }
       }
     }
@@ -188,6 +205,116 @@ const StyledContact = styled(Root)`
         font-size: 4.125rem;
         @media ${props => props.theme.bp.md} {
           margin-top: 0;
+          margin-bottom: 2rem;
+        }
+      }
+      .input-row {
+        display: flex;
+        gap: 3rem;
+        flex-direction: column;
+        .input-group {
+          &:first-of-type {
+            margin-bottom: 0.5rem;
+          flex-direction: row;
+          .input-group {
+            flex-grow: 1;
+          }
+        }
+      }
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 4rem;
+        position: relative;
+        .error-icon,
+        .alert {
+          opacity: 0;
+          pointer-events: none;
+          position: absolute;
+          transition: 0.25s ease-in-out;
+        }
+        .error-icon {
+          width: 2rem;
+          height: 2rem;
+          top: 3.5rem;
+          right: 0rem;
+        }
+        .alert {
+          bottom: -2.5rem;
+          font-size: 1.625rem;
+          letter-spacing: 0.03em;
+          color: ${props => props.theme.colors.error};
+          @media ${props => props.theme.bp.lg} {
+            bottom: 1rem;
+          }
+        }
+        &.invalid {
+          .error-icon,
+          .alert {
+            opacity: 1;
+          }
+          input {
+            border-color: ${props => props.theme.colors.error};
+          }
+        }
+        &.message {
+          margin-bottom: 5rem;
+          label {
+            margin-bottom: 2rem;
+          }
+        }
+        label {
+          text-transform: uppercase;
+          margin-bottom: 0.5rem;
+          font-size: 1.25rem;
+          span {
+            color: ${props => props.theme.colors.gold500};
+          }
+        }
+        input, textarea {
+          background: transparent;
+          border: 0;
+          outline: none;
+          border-bottom: 1px solid ${props => props.theme.colors.gold100};
+          font-family: unset;
+          padding: 1rem;
+          font-size: 2rem;
+          color: ${props => props.theme.colors.gold900};
+          &::placeholder {
+            color: ${props => props.theme.colors.gold100};
+            font-size: 2rem;
+          }
+        }
+        input {
+          height: 4.75rem;
+        }
+        textarea {
+          border: 1px solid ${props => props.theme.colors.gold100};
+          border-radius: 0.5rem;
+          resize: none;
+          height: 20rem;
+        }
+        button {
+          height: 5rem;
+          background: transparent;
+          border: 1px solid ${props => props.theme.colors.gold50};
+          color: ${props => props.theme.colors.gold50};
+          border-radius: 10rem;
+          font-size: 2rem;
+          pointer-events: none;
+          transition: 0.25s ease-in-out all;
+          @media ${props => props.theme.bp.md} {
+            width: 27.75rem;
+          }
+          &.enabled {
+            border-color: ${props => props.theme.colors.gold100};
+            color: ${props => props.theme.colors.gold900};
+            pointer-events: auto;
+            cursor: pointer;
+          }
+          &:hover {
+            border-color: ${props => props.theme.colors.gold500};
+            color: ${props => props.theme.colors.gold500};
+          }
         }
       }
     }
