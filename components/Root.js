@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Cormorant_Garamond } from '@next/font/google';
+import { Cormorant_Garamond } from 'next/font/google';
 import Navbar from './Navbar';
 
 const cormorantGaramond = Cormorant_Garamond({subsets: ['latin'], weight: ['300', '400', '500', '600', '700']});

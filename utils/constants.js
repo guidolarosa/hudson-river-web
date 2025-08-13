@@ -1,1 +1,0 @@
-export const herokuUrl = 'https://hudson-river-admin.herokuapp.com';
