@@ -10,10 +10,7 @@ import "@splidejs/react-splide/css";
 import { useEffect, useState } from "react";
 import Slider from "@/components/Slider";
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
+const inter = Inter({ subsets: ['latin'] })
 
 export default function REA(props) {
   const [activeImage, setActiveImage] = useState(0);

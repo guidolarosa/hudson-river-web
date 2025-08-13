@@ -7,7 +7,7 @@ import ReactMarkdown from "react-markdown";
 import { fadeUp } from '@/theme/animations';
 import { keyframes } from 'styled-components';
 
-const inter = Inter({subsets: ['latin'], weight: ['300', '400', '500', '600', '700']});
+const inter = Inter({ subsets: ['latin'] })
 
 const ItemCard = ({content, type}) => {
   return (
