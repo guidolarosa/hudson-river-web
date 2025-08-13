@@ -3,9 +3,9 @@ import Link from "next/link";
 import styled from "styled-components";
 import { useState } from "react";
 import { Inter } from 'next/font/google';
-import ReactMarkdown from "react-markdown";
 import { fadeUp } from '@/theme/animations';
 import { keyframes } from 'styled-components';
+import { PortableText } from "next-sanity";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -29,9 +29,9 @@ const ItemCard = ({content, type}) => {
         )}
         <h2>{content.name}</h2>
         {type === 'investment' && (
-          <ReactMarkdown className={inter.className}>
-            {content.description}
-          </ReactMarkdown>
+          <div className={`${inter.className} body`}>
+            <PortableText value={content.excerpt} />
+          </div>
         )}
       </div>
     </StyledPortfolioItemCard>
@@ -98,8 +98,7 @@ const StyledPortfolioList = styled.div`
         justify-content: center;
         background: ${props => props.theme.colors.gold25};
         .image {
-          max-width: 25rem;
-          max-height: 10.5rem;
+          max-height: 100%;
           img {
             object-fit: contain;
             object-position: center;

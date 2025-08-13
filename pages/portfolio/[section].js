@@ -92,14 +92,14 @@ export default function Portfolio(props) {
             type={"rea"}
             title={"Real Estate Acquisitions"}
           />
-          {/* <PortfolioList
+          <PortfolioList
             className={"investments"}
             isCurrentView={currentView === "investments"}
-            data={props.investments.data}
+            data={props.investments}
             handleToggleClick={handleToggleClick}
             type={"investment"}
             title={"Investments"}
-          /> */}
+          />
         </main>
       </StyledRoot>
     </>
@@ -145,9 +145,20 @@ export async function getStaticProps() {
   }`;
   const rea = await client.fetch(REA_QUERY);
 
+  const INVESTMENTS_QUERY = `*[
+    _type == "investments"
+  ] {
+    name,
+    location,
+    excerpt,
+    slug,
+    "mainImage": mainImage.asset->url,
+  }`;
+  const investments = await client.fetch(INVESTMENTS_QUERY);
+
   return {
     props: {
-      // investments: investments || [],
+      investments,
       rea,
     },
   };
