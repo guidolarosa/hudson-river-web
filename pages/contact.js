@@ -59,38 +59,6 @@ const Contact = () => {
     }
   });
 
-  const [formData, setFormData] = useState({
-    Name: {
-      value: "",
-      valid: false,
-    },
-    Email: {
-      value: "",
-      valid: false,
-    },
-    Phone: {
-      value: "",
-      valid: false,
-    },
-    Message: {
-      value: "",
-      valid: false,
-    },
-  });
-
-  useEffect(() => {
-    const { Name, Email, Phone, Message } = formData;
-    if (
-      Name.value.length > 0 &&
-      Email.value.length > 0 &&
-      Message.value.length > 0
-    ) {
-      setAllInputsFilled(true);
-    } else {
-      setAllInputsFilled(false);
-    }
-  }, [formData]);
-
   return (
     <>
       <Head>
@@ -107,7 +75,7 @@ const Contact = () => {
         <meta name="robots" content="index, follow" />
         <meta httpEquivv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="language" content="English" />
-        <meta name="author" content="Guido La Rosa, Entrecasas Studio"></meta>
+        <meta name="author" content="Guido La Rosa, Entrecasa Studio"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
         <meta property={"og:title"} content="Hudson River | Contact" />
@@ -366,9 +334,3 @@ const StyledContact = styled(Root)`
 `;
 
 export default Contact;
-
-export async function getStaticProps(context) {
-  return {
-    props: {},
-  };
-}

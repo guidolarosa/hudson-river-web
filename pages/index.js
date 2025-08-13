@@ -21,7 +21,7 @@ export default function Home() {
         <meta name="robots" content="index, follow" />
         <meta httpEquivv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="language" content="English" />
-        <meta name="author" content="Guido La Rosa, Entrecasas Studio"></meta>
+        <meta name="author" content="Guido La Rosa, Entrecasa Studio"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
         <meta property={"og:title"} content="Hudson River" />
