@@ -14,23 +14,23 @@ const ItemCard = ({content, type}) => {
     <StyledPortfolioItemCard className="portfolio-item-card">
       <div className="header">
         <div className="image">
-          <Image
+          {/* <Image
             fill
-            src={content.attributes.MainImage.data.attributes.url}
-            alt={content.attributes.Name}
-          />
+            src={content.attributes.mainImage.data.attributes.url}
+            alt={content.name}
+          /> */}
         </div>
       </div>
       <div className="body">
         {type === 'rea' && (
           <div className={`city ${inter.className}`}>
-            {content.attributes.City}
+            {content.location}
           </div>
         )}
-        <h2>{content.attributes.Name}</h2>
+        <h2>{content.name}</h2>
         {type === 'investment' && (
           <ReactMarkdown className={inter.className}>
-            {content.attributes.Excerpt}
+            {content.description}
           </ReactMarkdown>
         )}
       </div>
@@ -39,20 +39,20 @@ const ItemCard = ({content, type}) => {
 }
 
 
-const PortfolioList = (props) => {
+const PortfolioList = ({data, className, isCurrentView, type, title}) => {
 
   const [isOpen, setIsOpen] = useState(true);
   
   return (
     <StyledPortfolioList 
-      className={`portfolio-list ${props.className} ${props.isCurrentView ? 'show' : ''} ${isOpen ? 'toggle-open' : ''}`}>
+      className={`portfolio-list ${className} ${isCurrentView ? 'show' : ''} ${isOpen ? 'toggle-open' : ''}`}>
       <div 
         className="list-visibility-toggle" 
         onClick={() => { 
           setIsOpen(!isOpen);
         }}
       >
-        <h1>{props.title}</h1>
+        <h1>{title}</h1>
         <div className="chevron">
           <Image
             fill
@@ -62,16 +62,16 @@ const PortfolioList = (props) => {
         </div>
       </div>
       <ul>
-        {props.data.map((content, index) => (
+        {data.map((content, index) => (
           <li key={index}>
-            {props.type === 'rea' ? (
+            {type === 'rea' ? (
               <Link 
-                href={`/portfolio/real-estate-acquisitions/${content.attributes.Slug}`}
+                href={`/portfolio/real-estate-acquisitions/${content.slug}`}
               >
-                <ItemCard content={content} type={props.type}/>
+                <ItemCard content={content} type={type}/>
               </Link>
             ) : (
-              <ItemCard content={content} type={props.type} />
+              <ItemCard content={content} type={type} />
             )}
           </li>
         ))}

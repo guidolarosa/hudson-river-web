@@ -1,20 +1,13 @@
-import styled from 'styled-components';
-import Head from 'next/head'
-import Image from 'next/image';
-import Root from '@/components/Root';
-import { Inter } from '@next/font/google';
-import { useEffect, useState, useRef } from 'react';
-import { fadeUp } from '@/theme/animations';
-import { sanitizeString, validateEmail } from '@/utils/utils';
-import { herokuUrl } from '@/utils/constants';
-import mapboxgl from 'mapbox-gl';
-
-
-const inter = Inter({subsets: ['latin']});
+import styled from "styled-components";
+import Head from "next/head";
+import Root from "@/components/Root";
+import { useEffect, useState, useRef } from "react";
+import { fadeUp } from "@/theme/animations";
+import mapboxgl from "mapbox-gl";
 
 const Contact = (props) => {
-
-  mapboxgl.accessToken = 'pk.eyJ1IjoiaHVkc29ucml2ZXIiLCJhIjoiY2xnNDBjM2N4MGdvZDNxcWk1bmp1NXhrcCJ9.EwqxmMnu7VG6XoPHyLSYYg';
+  mapboxgl.accessToken =
+    "pk.eyJ1IjoiaHVkc29ucml2ZXIiLCJhIjoiY2xnNDBjM2N4MGdvZDNxcWk1bmp1NXhrcCJ9.EwqxmMnu7VG6XoPHyLSYYg";
 
   const [allInputsFilled, setAllInputsFilled] = useState(false);
   const [triedSubmit, setTriedSubmit] = useState(false);
@@ -22,8 +15,8 @@ const Contact = (props) => {
 
   const defaultCoord = {
     lat: 40.721181,
-    lng: -74.005887
-  }
+    lng: -74.005887,
+  };
 
   const mapContainer = useRef(null);
   const map = useRef(null);
@@ -33,139 +26,113 @@ const Contact = (props) => {
   const [zoom, setZoom] = useState(11);
 
   const geojson = {
-    type: 'FeatureCollection',
+    type: "FeatureCollection",
     features: [
       {
-        type: 'Feature',
+        type: "Feature",
         geometry: {
-          type: 'Point',
-          coordinates: [lng, lat]
+          type: "Point",
+          coordinates: [lng, lat],
         },
         properties: {
-          title: 'Hudson River',
-          description: 'Offices',
-        }
+          title: "Hudson River",
+          description: "Offices",
+        },
       },
-    ]
+    ],
   };
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/hudsonriver/clg40efwd00cr01nzey0cpm6c',
+      style: "mapbox://styles/hudsonriver/clg40efwd00cr01nzey0cpm6c",
       center: [lng, lat],
-      zoom: zoom
+      zoom: zoom,
     });
 
     for (const feature of geojson.features) {
       // create a HTML element for each feature
-      const el = document.createElement('div');
-      el.className = 'marker';
-    
+      const el = document.createElement("div");
+      el.className = "marker";
+
       // make a marker for each feature and add to the map
-      new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(map.current);
+      new mapboxgl.Marker(el)
+        .setLngLat(feature.geometry.coordinates)
+        .addTo(map.current);
     }
   });
 
   const [formData, setFormData] = useState({
     Name: {
-      value: '',
-      valid: false
+      value: "",
+      valid: false,
     },
     Email: {
-      value: '',
-      valid: false
+      value: "",
+      valid: false,
     },
     Phone: {
-      value: '',
-      valid: false
+      value: "",
+      valid: false,
     },
     Message: {
-      value: '',
-      valid: false
-    }
+      value: "",
+      valid: false,
+    },
   });
 
   useEffect(() => {
-    const {Name, Email, Phone, Message} = formData;
+    const { Name, Email, Phone, Message } = formData;
     if (
       Name.value.length > 0 &&
       Email.value.length > 0 &&
       Message.value.length > 0
     ) {
-      setAllInputsFilled(true)
+      setAllInputsFilled(true);
     } else {
-      setAllInputsFilled(false)
+      setAllInputsFilled(false);
     }
   }, [formData]);
-
-  const sendFormData = () => {
-    fetch(`${herokuUrl}/api/messages`, {
-      method: 'POST',
-      body: JSON.stringify({
-        data: {
-          Name: formData.Name.value,
-          Email: formData.Email.value,
-          Phone: formData.Phone.value.length === 0 ?
-            'No phone number provided' :
-            formData.Phone.value,
-          Message: formData.Message.value,
-        }
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setFormSubmited(true);
-      });
-  }
-  
-  const onFormSubmit = (e) => {
-    e.preventDefault();
-    setTriedSubmit(true);
-
-    const {Name, Email, Message, Phone} = formData;
-
-    if (
-      Name.valid &&
-      Email.valid &&
-      Message.valid
-    ) {
-      sendFormData();
-    };
-  }
 
   return (
     <>
       <Head>
         <title>Hudson River | Contact</title>
-        <meta name="title" content="Hudson River | Contact"/>
-        <meta name="description" content="Hudson River Companies is a real estate acquisition and investment firm focused on risk adjusted opportunistic strategy."/>
-        <meta name="keywords" content="real estate, investments, real estate acquisitions, new york, atlanta, georgia, USA, saral gupta"/>
-        <meta name="robots" content="index, follow"/>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="language" content="English"/>
+        <meta name="title" content="Hudson River | Contact" />
+        <meta
+          name="description"
+          content="Hudson River Companies is a real estate acquisition and investment firm focused on risk adjusted opportunistic strategy."
+        />
+        <meta
+          name="keywords"
+          content="real estate, investments, real estate acquisitions, new york, atlanta, georgia, USA, saral gupta"
+        />
+        <meta name="robots" content="index, follow" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="language" content="English" />
         <meta name="author" content="Guido La Rosa, Entrecasas Studio"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
-        <meta property={'og:title'} content='Hudson River | Contact'/>
-        <meta property={'og:image'} content='https://i.ibb.co/Snst5hs/thumbnail.png'/>
-        <meta property={'og:description'} content='Hudson River Companies is a real estate acquisition and investment firm focused on risk adjusted opportunistic strategy.'/>
-        <meta property={'og:url'} content='https://www.hudsonriverco.com'/>
-        <meta property='og:image:width' content='1200' />
-        <meta property='og:image:height' content='627' />
+        <meta property={"og:title"} content="Hudson River | Contact" />
+        <meta
+          property={"og:image"}
+          content="https://i.ibb.co/Snst5hs/thumbnail.png"
+        />
+        <meta
+          property={"og:description"}
+          content="Hudson River Companies is a real estate acquisition and investment firm focused on risk adjusted opportunistic strategy."
+        />
+        <meta property={"og:url"} content="https://www.hudsonriverco.com" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="627" />
       </Head>
       <StyledContact>
         <div className="contact-container">
           <div className="location">
             <div ref={mapContainer} className="map-container" />
             <address>
-              <strong>
-                6 St. Johns Ln, New York, NY
-              </strong>
+              <strong>6 St. Johns Ln, New York, NY</strong>
             </address>
           </div>
           <div className="form-container">
@@ -176,36 +143,33 @@ const Contact = (props) => {
               </strong>
             </Link> */}
             <address>
-              <strong>
-                Address: 6 St. Johns Ln, New York, NY
-              </strong>
+              <strong>Address: 6 St. Johns Ln, New York, NY</strong>
             </address>
             {/* <ContactForm /> */}
           </div>
         </div>
-
       </StyledContact>
     </>
-  )
+  );
 };
 
 const StyledContact = styled(Root)`
   .contact-container {
-    @media ${props => props.theme.bp.md} {
-      ${props => props.theme.boxSizes.default};
+    @media ${(props) => props.theme.bp.md} {
+      ${(props) => props.theme.boxSizes.default};
       display: flex;
       gap: 4rem;
       margin-top: 6rem;
     }
-    @media ${props => props.theme.bp.lg} {
+    @media ${(props) => props.theme.bp.lg} {
       max-width: calc(100vw - 44rem);
     }
-    @media ${props => props.theme.bp.xl} {
+    @media ${(props) => props.theme.bp.xl} {
       max-width: calc(100vw - 65.75rem);
     }
     .location,
     .form-container {
-      @media ${props => props.theme.bp.md} {
+      @media ${(props) => props.theme.bp.md} {
         width: 50%;
       }
     }
@@ -218,11 +182,11 @@ const StyledContact = styled(Root)`
         height: 62rem;
         max-height: calc(100vh - 40rem);
         pointer-events: none;
-        @media ${props => props.theme.bp.xl} {
+        @media ${(props) => props.theme.bp.xl} {
           height: 60rem;
         }
         .marker {
-          background-image: url('/general/marker.svg');
+          background-image: url("/general/marker.svg");
           background-size: cover;
           width: 3rem;
           height: 3rem;
@@ -233,12 +197,12 @@ const StyledContact = styled(Root)`
         .mapboxgl-control-container {
           display: none;
         }
-        @media ${props => props.theme.bp.xl} {
+        @media ${(props) => props.theme.bp.xl} {
           height: 60rem;
         }
         iframe {
           border: 0;
-          background: ${props => props.theme.colors.gold500};
+          background: ${(props) => props.theme.colors.gold500};
           opacity: 0;
           animation: 0.5s ${fadeUp} 1.5s forwards;
           width: 100%;
@@ -250,24 +214,24 @@ const StyledContact = styled(Root)`
       font-style: normal;
       font-weight: 400;
       strong {
-        ${props => props.theme.boxSizes.default};
+        ${(props) => props.theme.boxSizes.default};
         display: block;
         font-size: 2.375rem;
         margin-top: 3rem;
-        color: ${props => props.theme.colors.gold500};
+        color: ${(props) => props.theme.colors.gold500};
         opacity: 0;
         animation: 0.5s ${fadeUp} 1.5s forwards;
         width: unset;
-        @media ${props => props.theme.bp.md} {
+        @media ${(props) => props.theme.bp.md} {
           width: unset !important;
         }
       }
     }
     .form-container {
-      ${props => props.theme.boxSizes.default};
+      ${(props) => props.theme.boxSizes.default};
       opacity: 0;
       animation: 0.5s ${fadeUp} 1.75s forwards;
-      @media ${props => props.theme.bp.md} {
+      @media ${(props) => props.theme.bp.md} {
         width: 50%;
       }
       form {
@@ -278,9 +242,9 @@ const StyledContact = styled(Root)`
           .submit {
             opacity: 1;
             button {
-              color: ${props => props.theme.colors.gold25};
-              border-color: ${props => props.theme.colors.gold500};
-              background: ${props => props.theme.colors.gold500};
+              color: ${(props) => props.theme.colors.gold25};
+              border-color: ${(props) => props.theme.colors.gold500};
+              background: ${(props) => props.theme.colors.gold500};
             }
           }
         }
@@ -289,9 +253,9 @@ const StyledContact = styled(Root)`
         margin-top: 7rem;
         margin-bottom: 5rem;
         padding-bottom: 2rem;
-        border-bottom: 1px solid ${props => props.theme.colors.gold100};
+        border-bottom: 1px solid ${(props) => props.theme.colors.gold100};
         font-size: 4.125rem;
-        @media ${props => props.theme.bp.md} {
+        @media ${(props) => props.theme.bp.md} {
           margin-top: 0;
           margin-bottom: 2rem;
         }
@@ -303,12 +267,12 @@ const StyledContact = styled(Root)`
         .input-group {
           &:first-of-type {
             margin-bottom: 0.5rem;
-          flex-direction: row;
-          .input-group {
-            flex-grow: 1;
+            flex-direction: row;
+            .input-group {
+              flex-grow: 1;
+            }
           }
         }
-      }
         display: flex;
         flex-direction: column;
         margin-bottom: 4rem;
@@ -330,8 +294,8 @@ const StyledContact = styled(Root)`
           bottom: -2.5rem;
           font-size: 1.625rem;
           letter-spacing: 0.03em;
-          color: ${props => props.theme.colors.error};
-          @media ${props => props.theme.bp.lg} {
+          color: ${(props) => props.theme.colors.error};
+          @media ${(props) => props.theme.bp.lg} {
             bottom: 1rem;
           }
         }
@@ -341,7 +305,7 @@ const StyledContact = styled(Root)`
             opacity: 1;
           }
           input {
-            border-color: ${props => props.theme.colors.error};
+            border-color: ${(props) => props.theme.colors.error};
           }
         }
         &.message {
@@ -355,20 +319,21 @@ const StyledContact = styled(Root)`
           margin-bottom: 0.5rem;
           font-size: 1.25rem;
           span {
-            color: ${props => props.theme.colors.gold500};
+            color: ${(props) => props.theme.colors.gold500};
           }
         }
-        input, textarea {
+        input,
+        textarea {
           background: transparent;
           border: 0;
           outline: none;
-          border-bottom: 1px solid ${props => props.theme.colors.gold100};
+          border-bottom: 1px solid ${(props) => props.theme.colors.gold100};
           font-family: unset;
           padding: 1rem;
           font-size: 2rem;
-          color: ${props => props.theme.colors.gold900};
+          color: ${(props) => props.theme.colors.gold900};
           &::placeholder {
-            color: ${props => props.theme.colors.gold100};
+            color: ${(props) => props.theme.colors.gold100};
             font-size: 2rem;
           }
         }
@@ -376,7 +341,7 @@ const StyledContact = styled(Root)`
           height: 4.75rem;
         }
         textarea {
-          border: 1px solid ${props => props.theme.colors.gold100};
+          border: 1px solid ${(props) => props.theme.colors.gold100};
           border-radius: 0.5rem;
           resize: none;
           height: 20rem;
@@ -384,24 +349,24 @@ const StyledContact = styled(Root)`
         button {
           height: 5rem;
           background: transparent;
-          border: 1px solid ${props => props.theme.colors.gold50};
-          color: ${props => props.theme.colors.gold50};
+          border: 1px solid ${(props) => props.theme.colors.gold50};
+          color: ${(props) => props.theme.colors.gold50};
           border-radius: 10rem;
           font-size: 2rem;
           pointer-events: none;
           transition: 0.25s ease-in-out all;
-          @media ${props => props.theme.bp.md} {
+          @media ${(props) => props.theme.bp.md} {
             width: 27.75rem;
           }
           &.enabled {
-            border-color: ${props => props.theme.colors.gold100};
-            color: ${props => props.theme.colors.gold900};
+            border-color: ${(props) => props.theme.colors.gold100};
+            color: ${(props) => props.theme.colors.gold900};
             pointer-events: auto;
             cursor: pointer;
           }
           &:hover {
-            border-color: ${props => props.theme.colors.gold500};
-            color: ${props => props.theme.colors.gold500};
+            border-color: ${(props) => props.theme.colors.gold500};
+            color: ${(props) => props.theme.colors.gold500};
           }
         }
       }
@@ -413,6 +378,6 @@ export default Contact;
 
 export async function getStaticProps(context) {
   return {
-    props: {}
-  }
+    props: {},
+  };
 }
