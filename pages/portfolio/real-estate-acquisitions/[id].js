@@ -345,13 +345,9 @@ const StyledRoot = styled(Root)`
 `;
 
 export async function getStaticProps(ctx) {
-  const reaRes = await fetch(
-    `${strapiUrl}/api/real-estate-acquisitions?filters[Slug][$eq]=${ctx.params.id}&populate=*`
-  );
-  const rea = await reaRes.json();
   return {
     props: {
-      rea: rea,
+      rea: [],
     },
   };
 }
