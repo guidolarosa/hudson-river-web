@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
 import { useState } from "react";
-import { Inter } from '@next/font/google';
+import { Inter } from 'next/font/google';
 import ReactMarkdown from "react-markdown";
 import { fadeUp } from '@/theme/animations';
 import { keyframes } from 'styled-components';

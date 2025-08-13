@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@next/font": "^13.1.1",
     "@sanity/image-url": "^1.1.0",
     "@sanity/visual-editing": "^3.0.2",
     "@splidejs/react-splide": "^0.7.12",
@@ -18,7 +17,6 @@
     "google-map-react": "^2.2.0",
     "mapbox-gl": "^2.13.0",
     "next": "^15.4.6",
-    "next-page-transitions": "^1.0.0-beta.2",
     "next-sanity": "^10.0.10",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

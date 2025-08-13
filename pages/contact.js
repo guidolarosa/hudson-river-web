@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { fadeUp } from "@/theme/animations";
 import mapboxgl from "mapbox-gl";
 
-const Contact = (props) => {
+const Contact = () => {
   mapboxgl.accessToken =
     "pk.eyJ1IjoiaHVkc29ucml2ZXIiLCJhIjoiY2xnNDBjM2N4MGdvZDNxcWk1bmp1NXhrcCJ9.EwqxmMnu7VG6XoPHyLSYYg";
 
@@ -109,7 +109,7 @@ const Contact = (props) => {
           content="real estate, investments, real estate acquisitions, new york, atlanta, georgia, USA, saral gupta"
         />
         <meta name="robots" content="index, follow" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta httpEquivv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="language" content="English" />
         <meta name="author" content="Guido La Rosa, Entrecasas Studio"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />

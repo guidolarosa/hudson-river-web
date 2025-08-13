@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Head from "next/head";
 import Image from "next/image";
 import Root from "@/components/Root";
-import { Inter } from "@next/font/google";
+import { Inter } from "next/font/google";
 import { fadeUp } from "@/theme/animations";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,7 +22,7 @@ const About = (props) => {
           content="real estate, investments, real estate acquisitions, new york, atlanta, georgia, USA, saral gupta"
         />
         <meta name="robots" content="index, follow" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta httpEquivv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="language" content="English" />
         <meta name="author" content="Guido La Rosa, Entrecasas Studio"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />

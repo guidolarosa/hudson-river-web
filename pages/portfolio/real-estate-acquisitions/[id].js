@@ -2,7 +2,7 @@ import Head from "next/head";
 import Root from "@/components/Root";
 import styled from "styled-components";
 import Image from "next/image";
-import { Inter } from "@next/font/google";
+import { Inter } from "next/font/google";
 import ReactMarkdown from "react-markdown";
 import Sidebar from "@/components/Sidebar";
 import { useRouter } from "next/router";
@@ -45,7 +45,7 @@ export default function REA(props) {
           content="real estate, investments, real estate acquisitions, new york, atlanta, georgia, USA, saral gupta"
         />
         <meta name="robots" content="index, follow" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta httpEquivv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="language" content="English" />
         <meta name="author" content="Guido La Rosa, Entrecasas Studio"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
