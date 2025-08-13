@@ -136,7 +136,13 @@ const StyledRoot = styled(Root)`
 export async function getStaticProps() {
   const REA_QUERY = `*[
     _type == "rea"
-  ]`;
+  ] {
+    name,
+    location,
+    description,
+    slug,
+    "mainImage": mainImage.asset->url,
+  }`;
   const rea = await client.fetch(REA_QUERY);
 
   return {

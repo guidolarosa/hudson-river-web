@@ -44,8 +44,8 @@ const Slider = (props) => {
                 <div className="slide-image">
                   <Image
                     fill
-                    alt={image.attributes.name}
-                    src={image.attributes.url}
+                    alt={'Slider Image'}
+                    src={image}
                     style={{
                       objectFit: 'cover'
                     }}
