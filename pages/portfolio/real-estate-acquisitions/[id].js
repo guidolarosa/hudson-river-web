@@ -354,13 +354,15 @@ export async function getStaticProps(ctx) {
 
 export async function getStaticPaths() {
   let reaPaths = [];
-  const reaRes = await fetch(`${strapiUrl}/api/real-estate-acquisitions`);
-  const rea = await reaRes.json();
+  const REA_QUERY = `*[
+    _type == "rea"
+  ]`;
+  const rea = await client.fetch(REA_QUERY);
 
   rea.data.forEach((item) => {
     reaPaths.push({
       params: {
-        id: item.attributes.Slug,
+        id: item.slug.current,
       },
     });
   });
