@@ -14,11 +14,11 @@ const ItemCard = ({content, type}) => {
     <StyledPortfolioItemCard className="portfolio-item-card">
       <div className="header">
         <div className="image">
-          {/* <Image
+          <Image
             fill
-            src={content.attributes.mainImage.data.attributes.url}
+            src={content.mainImage}
             alt={content.name}
-          /> */}
+          />
         </div>
       </div>
       <div className="body">
@@ -66,7 +66,7 @@ const PortfolioList = ({data, className, isCurrentView, type, title}) => {
           <li key={index}>
             {type === 'rea' ? (
               <Link 
-                href={`/portfolio/real-estate-acquisitions/${content.slug}`}
+                href={`/portfolio/real-estate-acquisitions/${content.slug.current}`}
               >
                 <ItemCard content={content} type={type}/>
               </Link>

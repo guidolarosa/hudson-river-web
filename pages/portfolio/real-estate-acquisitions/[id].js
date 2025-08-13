@@ -9,33 +9,33 @@ import { useRouter } from "next/router";
 import "@splidejs/react-splide/css";
 import { useEffect, useState } from "react";
 import Slider from "@/components/Slider";
+import { client } from "@/utils/sanity/client";
+import { PortableText } from "@portabletext/react";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function REA(props) {
   const [activeImage, setActiveImage] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  let { Name, City, Description, MainImage, SliderImages } =
-    props.rea.data[0].attributes;
+  let { name, location, description, mainImage, images } = props.rea[0];
 
   const router = useRouter();
 
   useEffect(() => {
     if (
-      SliderImages.data &&
-      SliderImages.data.filter((image) => image.id === MainImage.data.id)
+      images &&
+      images.filter((image) => image._id === mainImage._id)
         .length == 0
     ) {
-      SliderImages.data.unshift(MainImage.data);
+      images.unshift(mainImage);
     }
-  }, [SliderImages, MainImage]);
+  }, [images, mainImage]);
 
   return (
     <>
       <Head>
-        <title>Hudson River | {Name}</title>
-        <meta name="title" content={`Hudson River | ${Name}`} />
+        <title>Hudson River | {name}</title>
+        <meta name="title" content={`Hudson River | ${name}`} />
         <meta
           name="description"
           content="Hudson River Companies is a real estate acquisition and investment firm focused on risk adjusted opportunistic strategy."
@@ -50,10 +50,10 @@ export default function REA(props) {
         <meta name="author" content="Guido La Rosa, Entrecasas Studio"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.png" />
-        <meta property={"og:title"} content={`Hudson River | ${Name}`} />
+        <meta property={"og:title"} content={`Hudson River | ${name}`} />
         <meta
           property={"og:image"}
-          content={`${MainImage.data.attributes.url}`}
+          content={`${mainImage}`}
         />
         <meta
           property={"og:description"}
@@ -106,35 +106,33 @@ export default function REA(props) {
                     alt="View image"
                   />
                 </div>
-                {SliderImages.data ? (
+                {images ? (
                   <Image
-                    src={SliderImages.data[activeImage].attributes.url}
+                    src={images[activeImage]}
                     fill
-                    alt={Name}
+                    alt={name}
                   />
                 ) : (
-                  <Image src={MainImage.data.attributes.url} fill alt={Name} />
+                  <Image src={mainImage} fill alt={name} />
                 )}
               </div>
               <Slider
                 setActiveImage={setActiveImage}
-                sliderImages={SliderImages.data}
+                sliderImages={images}
                 type={"mobile"}
               />
-              <span className={`city ${inter.className}`}>{City}</span>
-              <h1>{Name}</h1>
+              <span className={`city ${inter.className}`}>{location}</span>
+              <h1>{name}</h1>
             </div>
-            {Description && (
-              <div className="body">
-                <ReactMarkdown className={inter.className}>
-                  {Description}
-                </ReactMarkdown>
+            {description && (
+              <div className={`${inter.className} body`}>
+                <PortableText value={description} />
               </div>
             )}
           </div>
           <Slider
             setActiveImage={setActiveImage}
-            sliderImages={SliderImages.data}
+            sliderImages={images}
             type={"desktop"}
           />
           <div className={`modal ${isModalOpen ? "open" : ""}`}>
@@ -148,19 +146,19 @@ export default function REA(props) {
             </div>
             <div className="modal-body">
               <div className="main-image">
-                {SliderImages.data ? (
+                {images ? (
                   <Image
-                    src={SliderImages.data[activeImage].attributes.url}
+                    src={images[activeImage]}
                     fill
-                    alt={Name}
+                    alt={name}
                   />
                 ) : (
-                  <Image src={MainImage.data.attributes.url} fill alt={Name} />
+                  <Image src={mainImage} fill alt={name} />
                 )}
               </div>
               <Slider
                 setActiveImage={setActiveImage}
-                sliderImages={SliderImages.data}
+                sliderImages={images}
                 type={"mobile"}
               />
             </div>
@@ -345,32 +343,49 @@ const StyledRoot = styled(Root)`
 `;
 
 export async function getStaticProps(ctx) {
-  const reaRes = await fetch(
-    `${strapiUrl}/api/real-estate-acquisitions?filters[Slug][$eq]=${ctx.params.id}&populate=*`
-  );
-  const rea = await reaRes.json();
+  const REA_QUERY = `*[
+    _type == "rea"
+    && slug.current == "${ctx.params.id}"
+  ] {
+    name,
+    location,
+    description,
+    slug,
+    "mainImage": mainImage.asset->url,
+    "images": images[].asset->url,
+  }`;
+  const rea = await client.fetch(REA_QUERY);
   return {
     props: {
-      rea: rea,
+      rea,
     },
   };
 }
 
 export async function getStaticPaths() {
-  let reaPaths = [];
-  const reaRes = await fetch(`${strapiUrl}/api/real-estate-acquisitions`);
-  const rea = await reaRes.json();
+  let paths = [];
+  const REA_QUERY = `*[
+    _type == "rea" 
+  ] {
+    name,
+    location,
+    description,
+    slug,
+    "mainImage": mainImage.asset->url,
+    "images": images[].asset->url,
+    }`;
+  const rea = await client.fetch(REA_QUERY);
 
-  rea.data.forEach((item) => {
-    reaPaths.push({
+  rea.forEach((item) => {
+    paths.push({
       params: {
-        id: item.attributes.Slug,
+        id: item.slug.current,
       },
     });
   });
 
   return {
-    paths: reaPaths,
+    paths,
     fallback: false, // can also be true or 'blocking'
   };
 }
