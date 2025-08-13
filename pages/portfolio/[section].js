@@ -26,8 +26,6 @@ export default function Portfolio(props) {
     setCurrentView(section);
   }, [router.query.section]);
 
-  console.log(props.rea);
-
   return (
     <>
       <Head>
