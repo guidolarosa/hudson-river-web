@@ -231,8 +231,7 @@ const StyledRoot = styled(Root)`
             height: 100%;
             background: ${(props) => props.theme.colors.gold25};
             img {
-              padding: 1rem;
-              object-fit: contain;
+              object-fit: cover;
             }
           }
         }
