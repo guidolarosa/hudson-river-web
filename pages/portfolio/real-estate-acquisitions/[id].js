@@ -106,15 +106,17 @@ export default function REA(props) {
                     alt="View image"
                   />
                 </div>
-                {images ? (
-                  <Image
-                    src={images[activeImage]}
-                    fill
-                    alt={name}
-                  />
-                ) : (
-                  <Image src={mainImage} fill alt={name} />
-                )}
+                <div className="image-container">
+                  {images ? (
+                    <Image
+                      src={images[activeImage]}
+                      fill
+                      alt={name}
+                    />
+                  ) : (
+                    <Image src={mainImage} fill alt={name} />
+                  )}
+                </div>
               </div>
               <Slider
                 setActiveImage={setActiveImage}
@@ -179,6 +181,7 @@ const StyledRoot = styled(Root)`
   ${(props) => props.theme.boxSizes.default};
   display: flex;
   flex-direction: column;
+  padding-bottom: 10rem;
   @media ${(props) => props.theme.bp.lg} {
     padding-top: 6rem;
     display: grid !important;
@@ -222,8 +225,15 @@ const StyledRoot = styled(Root)`
             right: 0;
             z-index: 1;
           }
-          img {
-            object-fit: cover;
+          .image-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: ${(props) => props.theme.colors.gold25};
+            img {
+              padding: 1rem;
+              object-fit: contain;
+            }
           }
         }
         .slider {
